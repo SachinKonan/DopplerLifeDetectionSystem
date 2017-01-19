@@ -10,21 +10,21 @@ if __name__ == "__main__":
 	dac1 = dacThreadSin(0x63)
 	dac2 = dacThreadSin(0x62)
 	samples = 0
-	
+
 	dac1.start()
-	
+
 	time.sleep(1)
-	
+
 	dac2.start()
-	
+
 	adc.start()
-	
+
 	start = time.time()
-	
+
 	while True:
 		print('%d , %d , %d , %d ' % (adc.getADCVal1(),adc.getADCVal2(),adc.getADCVal3(),adc.getADCVal4()))
 		samples+=1
-	
+
 	end = time.time()
 	tottime = end - start
 	print('Sampling Rate = %d' % (1000/tottime))
