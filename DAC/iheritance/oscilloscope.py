@@ -10,9 +10,8 @@ from matplotlib.lines import Line2D
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-
 class Scope(object):
-    def __init__(self, ax, maxt=5, dt=0.02):
+    def __init__(self, ax, maxt=5, dt=0.01):
         self.ax = ax
         self.dt = dt
         self.maxt = maxt
@@ -49,8 +48,7 @@ fig, ax = plt.subplots()
 scope = Scope(ax)
 
 # pass a generator in "emitter" to produce data for the update func
-ani = animation.FuncAnimation(fig, scope.update, emitter, interval=10,
-                              blit=True)
+ani = animation.FuncAnimation(fig, scope.update, emitter, interval=10,blit=True)
 
 
 plt.show()

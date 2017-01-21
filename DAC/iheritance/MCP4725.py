@@ -9,9 +9,10 @@ class MCP4725:
         self.i2caddress = address
         self.interrupt = False
         self.dac = Adafruit_MCP4725.MCP4725(self.i2caddress)
+
     def start(self):
-        Thread(args=(),target=)
-        
+        Thread(args=(),target=self.cycle)
+
     def cycle(self):
         if(self.interrupt):
             return

@@ -2,7 +2,6 @@ from ADC import ADCThread
 from sinwave import dacThreadSin
 import time
 
-
 if __name__ == "__main__":
 	# path: /home/pi/Documents/PythonProjects/ScienceFair2016/ADC
 	#run: python simptest.py
