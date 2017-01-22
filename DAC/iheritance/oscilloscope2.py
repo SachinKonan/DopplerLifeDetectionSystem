@@ -4,11 +4,13 @@ from drawnow import *
 import atexit
 from ADS import ADCThread
 
+
 def plotValues():
     plt.title('Serial value from Arduino')
     plt.grid(True)
     plt.ylabel('Values')
     plt.plot(values, 'rx-', label='values')
+
     plt.legend(loc='upper right')
 
 def doAtExit():
