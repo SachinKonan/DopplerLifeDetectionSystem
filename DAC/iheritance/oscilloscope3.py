@@ -31,9 +31,8 @@ def SinwaveformGenerator(arg):
   global values
   #ohmegaCos=arccos(T1)/Ta
   #print "fcos=", ohmegaCos/(2*pi), "Hz"
-  adc = ADCThread(0x48).start()
 
-  values.append(adc.getADCVal1())
+  values.append(np.random.rand())
 
 def RealtimePloter(arg):
   global values
