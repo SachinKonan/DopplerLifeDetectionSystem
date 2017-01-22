@@ -1,5 +1,6 @@
 import matplotlib.pylab as pylab
 import numpy as np
+from ADS import ADCThread
 
 xAchse=pylab.arange(0,100,1)
 yAchse=pylab.array([0]*100)
@@ -10,7 +11,7 @@ ax.grid(True)
 ax.set_title("Realtime Waveform Plot")
 ax.set_xlabel("Time")
 ax.set_ylabel("Amplitude")
-ax.axis([0,100,-1.5,1.5])
+ax.axis([0,100,-5,5])
 line1=ax.plot(xAchse,yAchse,'-')
 
 manager = pylab.get_current_fig_manager()
@@ -27,17 +28,12 @@ T0=1.0
 T1=Konstant
 
 def SinwaveformGenerator(arg):
-  global values,T1,Konstant,T0
+  global values
   #ohmegaCos=arccos(T1)/Ta
   #print "fcos=", ohmegaCos/(2*pi), "Hz"
+  adc = ADCThread(0x48).start()
 
-  Tnext=((Konstant*T1)*2)-T0
-  if len(values)%100>70:
-    values.append(np.random.rand()*2-1)
-  else:
-    values.append(Tnext)
-  T0=T1
-  T1=Tnext
+  values.append(adc.getADCVal1())
 
 def RealtimePloter(arg):
   global values
