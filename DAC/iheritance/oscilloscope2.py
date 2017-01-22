@@ -4,7 +4,7 @@ from drawnow import *
 import atexit
 from ADS import ADCThread
 
-
+plt.fignum_exists
 def plotValues():
     plt.title('Serial value from Arduino')
     plt.grid(True)

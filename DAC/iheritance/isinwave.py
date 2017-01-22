@@ -2,7 +2,7 @@ import time
 
 import numpy as np
 
-from DAC.iheritance.MCP4725 import MCP4725
+from MCP4725 import MCP4725
 
 
 class dacThreadSin(MCP4725):
@@ -33,10 +33,8 @@ class dacThreadSin(MCP4725):
             self.degree = self.degree
             """
         self.degree += 1
-        
+
  if __name__ == "__main__":
 	 dac1 = dacThreadSin(address=0x62, frequency=2)
-	 
+
 	 dac1.start()
-	 
-	 
