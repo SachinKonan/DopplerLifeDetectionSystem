@@ -1,11 +1,10 @@
-import matplotlib.pylab as pylab
+import matplotlib.pylab as plt
 import numpy as np
-from ADS import ADCThread
 
-xAchse=pylab.arange(0,100,1)
-yAchse=pylab.array([0]*100)
+xAchse=plt.arange(0,100,1)
+yAchse=plt.array([0]*100)
 
-fig = pylab.figure(1)
+fig = plt.figure(1)
 ax = fig.add_subplot(111)
 ax.grid(True)
 ax.set_title("Realtime Waveform Plot")
@@ -14,36 +13,32 @@ ax.set_ylabel("Amplitude")
 ax.axis([0,100,-5,5])
 line1=ax.plot(xAchse,yAchse,'-')
 
-manager = pylab.get_current_fig_manager()
+manager = plt.get_current_fig_manager()
 
 values=[]
 values = [0 for x in range(100)]
-
-Ta=0.01
-fa=1.0/Ta
-fcos=3.5
-
-Konstant=np.cos(2*np.pi*fcos*Ta)
-T0=1.0
-T1=Konstant
 
 def SinwaveformGenerator(arg):
   global values
   #ohmegaCos=arccos(T1)/Ta
   #print "fcos=", ohmegaCos/(2*pi), "Hz"
-<<<<<<< HEAD
 
-  values.append(np.random.rand())
-=======
-  adc = ADCThread(0x48).start()
-  values.append(adc.getADCVal1())
->>>>>>> 5864d1743fdd0d79fd92004313018bd45e3b199a
+  """Tnext=((Konstant*T1)*2)-T0
+
+  if len(values)%100>70:
+    values.append(np.random.rand()*2-1)
+  else:
+    values.append(Tnext)
+  T0=T1
+  T1=Tnext"""
+  #add adc stuff here
+  values.append(np.random.rand()*2 -1)
 
 def RealtimePloter(arg):
   global values
-  CurrentXAxis=pylab.arange(len(values)-100,len(values),1)
-  line1[0].set_data(CurrentXAxis,pylab.array(values[-100:]))
-  ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),-5, 5])
+  CurrentXAxis=plt.arange(len(values)-100,len(values),1)
+  line1[0].set_data(CurrentXAxis,plt.array(values[-100:]))
+  ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),-5,5])
   manager.canvas.draw()
   #manager.show()
 
@@ -54,4 +49,4 @@ timer2.add_callback(SinwaveformGenerator, ())
 timer.start()
 timer2.start()
 
-pylab.show()
+plt.show()
