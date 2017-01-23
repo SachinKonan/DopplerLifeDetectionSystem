@@ -31,14 +31,19 @@ def SinwaveformGenerator(arg):
   global values
   #ohmegaCos=arccos(T1)/Ta
   #print "fcos=", ohmegaCos/(2*pi), "Hz"
+<<<<<<< HEAD
 
   values.append(np.random.rand())
+=======
+  adc = ADCThread(0x48).start()
+  values.append(adc.getADCVal1())
+>>>>>>> 5864d1743fdd0d79fd92004313018bd45e3b199a
 
 def RealtimePloter(arg):
   global values
   CurrentXAxis=pylab.arange(len(values)-100,len(values),1)
   line1[0].set_data(CurrentXAxis,pylab.array(values[-100:]))
-  ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),-1.5,1.5])
+  ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),-5, 5])
   manager.canvas.draw()
   #manager.show()
 
