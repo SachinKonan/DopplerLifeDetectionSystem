@@ -1,5 +1,6 @@
 import matplotlib.pylab as plt
 import numpy as np
+from ADS import ADCThread
 from matplotlib import style
 
 style.use("ggplot")
@@ -19,6 +20,11 @@ line1=ax.plot(xAchse,yAchse,'-')
 manager = plt.get_current_fig_manager()
 
 values = [0 for x in range(100)]
+adc = ADCThread(0x48).start()
+
+
+def converter(x):
+	return (x/32767) * 6.144
 
 def SinwaveformGenerator(arg):
   global values
@@ -34,7 +40,7 @@ def SinwaveformGenerator(arg):
   T0=T1
   T1=Tnext"""
   #add adc stuff here
-  values.append(np.random.rand()*2 -1)
+  values.append(converter(adc.getADCVal1()))
 
 def RealtimePloter(arg):
   global values
@@ -52,3 +58,5 @@ timer.start()
 timer2.start()
 
 plt.show()
+
+adc.stop()
