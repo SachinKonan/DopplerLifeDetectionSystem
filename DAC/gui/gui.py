@@ -6,6 +6,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 from matplotlib.figure import Figure
 from matplotlib import style
 import numpy as np
+import time
 
 style.use("ggplot")
 
@@ -86,9 +87,6 @@ class PageThree(tk.Frame):
         label1 = tk.Label(self,text = "Phase Setting (0 - 360)", font=small_font )
         label1.pack()
 
-        self.entrytext = str()
-        self.Entry(self.root, textvariable=self.entrytext).pack()
-
 
 
 
@@ -111,14 +109,19 @@ class PageThree(tk.Frame):
 
         self.values = [0 for x in range(100)]
 
-        self.after(ms=100, func=self.SinwaveformGenerator)
-        self.after(ms=100, func=self.RealtimePlotter)
+        #self.after(ms=100, func=self.SinwaveformGenerator)
+        #self.after(ms=100, func=self.RealtimePlotter)
+
+        self.SinwaveformGenerator()
+        self.RealtimePlotter()
 
     def SinwaveformGenerator(self):
 
       #add adc stuff here
       self.values.append(np.random.rand()*2 -1)
       self.after(ms = 25, func= self.SinwaveformGenerator)
+      #time.sleep(0.025)
+      #self.SinwaveformGenerator()
 
     def RealtimePlotter(self):
       CurrentXAxis=plt.arange(len(self.values)-100,len(self.values),1)
@@ -126,6 +129,7 @@ class PageThree(tk.Frame):
       self.ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),-5,5])
       self.canvas.draw()
       self.after(ms = 25, func= self.RealtimePlotter)
+
 
 
 
