@@ -1,5 +1,8 @@
 import matplotlib.pylab as plt
 import numpy as np
+from matplotlib import style
+
+style.use("ggplot")
 
 xAchse=plt.arange(0,100,1)
 yAchse=plt.array([0]*100)
@@ -15,7 +18,6 @@ line1=ax.plot(xAchse,yAchse,'-')
 
 manager = plt.get_current_fig_manager()
 
-values=[]
 values = [0 for x in range(100)]
 
 def SinwaveformGenerator(arg):
