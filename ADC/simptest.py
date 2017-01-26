@@ -1,6 +1,7 @@
 from ADC import ADCThread
 from sinwave import dacThreadSin
 import time
+import cv2 as cv2
 
 if __name__ == "__main__":
 	# path: /home/pi/Documents/PythonProjects/ScienceFair2016/ADC

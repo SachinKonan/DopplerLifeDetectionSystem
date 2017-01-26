@@ -9,6 +9,7 @@ from matplotlib import style
 import numpy as np
 import time
 import sys
+from DAC.iheritance import ADS, MCP4725
 
 style.use("ggplot")
 
