@@ -9,7 +9,7 @@ from matplotlib import style
 import numpy as np
 import time
 import sys
-from DAC.iheritance import ADS, MCP4725
+from setvalue import dacThreadVAL
 
 style.use("ggplot")
 
@@ -137,7 +137,10 @@ class PageThree(tk.Frame):
         self.canvas.get_tk_widget().pack(side = tk.LEFT, fill = tk.BOTH, expand = True)
 
         self.values = [0 for x in range(100)]
-
+        
+        self.phasedac = dacThreadVAL(0x63).start()
+        self.ampdac = dacThreadVAL(0x62).start()
+        
         #self.after(ms=100, func=self.SinwaveformGenerator)
         #self.after(ms=100, func=self.RealtimePlotter)
 
@@ -155,6 +158,7 @@ class PageThree(tk.Frame):
             if(val>= 0 and val <= 360):
                 self.label2["text"] = "Current Phase is: " + valstring
                 #add dac stuff
+                self.phasedac.updateVal(int(val /5 * 4096))
 
             else:
                 self.label2["text"] = "Current Phase is: INVALID"
