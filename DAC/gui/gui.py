@@ -10,8 +10,7 @@ import numpy as np
 import time
 import sys
 from setvalue import dacThreadVAL
-import Adafruit_ADS1x15
-
+from ADS import ADCThread
 style.use("ggplot")
 
 matplotlib.use("TkAgg")
@@ -23,7 +22,7 @@ small_font = ("Verdana", 8)
 phasedac = dacThreadVAL(0x63).start()
 ampdac = dacThreadVAL(0x62).start()
 		
-adc = Adafruit_ADS1x15.ADS1115()
+adc = ADCThread().start()
 
 class MainGui(tk.Tk):
 	def __init__(self, *args, **kwargs):
@@ -126,7 +125,7 @@ class PageThree(tk.Frame):
 
 		#self.updateGUIVals()
 
-		f = Figure(figsize = (6,4), dpi = 100)
+		f = Figure(figsize = (7,4), dpi = 100)
 		self.ax = f.add_subplot(111)
 		self.ax.grid(True)
 
@@ -163,7 +162,7 @@ class PageThree(tk.Frame):
 			if(val>= 0 and val <= 360):
 				self.label2["text"] = "Current Phase is: " + valstring
 				#add dac stuff
-				phasedac.updateVal(int((val /3.0) * 4096))
+				phasedac.updateVal(int((val /5.0) * 4096))
 
 			else:
 				self.label2["text"] = "INVALID"
@@ -181,7 +180,7 @@ class PageThree(tk.Frame):
 			if(val>= -100 and val <= 3.3):
 				self.label4["text"] = "Current Amplitude is: " + valstring
 				#add dac stuff here
-				ampdac.updateVal(int((val /3.3) * 4096))
+				ampdac.updateVal(int((val /5.0) * 4096))
 			else:
 				self.label4["text"] = "INVALID"
 		except ValueError:
@@ -191,7 +190,7 @@ class PageThree(tk.Frame):
 	def SinwaveformGenerator(self):
 
 	  #add adc stuff here
-	  self.values.append((adc.read_adc(0, gain=2/3)/32767.0)* 6.144)
+	  self.values.append(adc.getADCVal2())
 	  #self.values.append(np.random.rand()*2 -1)
 	  self.after(ms = 25, func= self.SinwaveformGenerator)
 	  #time.sleep(0.025)
@@ -203,6 +202,7 @@ class PageThree(tk.Frame):
 	  self.ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),-7,7])
 	  self.canvas.draw()
 	  self.after(ms = 25, func= self.RealtimePlotter)
+
 
 app = MainGui()
 app.mainloop()
