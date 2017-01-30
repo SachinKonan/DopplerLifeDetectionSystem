@@ -10,6 +10,7 @@ import numpy as np
 import time
 import sys
 from setvalue import dacThreadVAL
+import Adafruit_ADS1x15
 
 style.use("ggplot")
 
@@ -22,7 +23,8 @@ small_font = ("Verdana", 8)
 phasedac = dacThreadVAL(0x63).start()
 ampdac = dacThreadVAL(0x62).start()
 		
-		
+adc = Adafruit_ADS1x15.ADS1115()
+
 class MainGui(tk.Tk):
 	def __init__(self, *args, **kwargs):
 		tk.Tk.__init__(self, *args, **kwargs)
@@ -136,7 +138,7 @@ class PageThree(tk.Frame):
 		self.ax.set_title("Realtime Waveform Plot")
 		self.ax.set_xlabel("Time")
 		self.ax.set_ylabel("Amplitude")
-		self.ax.axis([0,100,-5,5])
+		self.ax.axis([0,100,-7,7])
 		self.line1= self.ax.plot(xAchse,yAchse,'-')
 
 		self.canvas = FigureCanvasTkAgg(f,master=self)
@@ -189,7 +191,8 @@ class PageThree(tk.Frame):
 	def SinwaveformGenerator(self):
 
 	  #add adc stuff here
-	  self.values.append(np.random.rand()*2 -1)
+	  self.values.append((adc.read_adc(0, gain=2/3)/32767.0)* 6.144)
+	  #self.values.append(np.random.rand()*2 -1)
 	  self.after(ms = 25, func= self.SinwaveformGenerator)
 	  #time.sleep(0.025)
 	  #self.SinwaveformGenerator()
@@ -197,7 +200,7 @@ class PageThree(tk.Frame):
 	def RealtimePlotter(self):
 	  CurrentXAxis=plt.arange(len(self.values)-100,len(self.values),1)
 	  self.line1[0].set_data(CurrentXAxis,plt.array(self.values[-100:]))
-	  self.ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),-5,5])
+	  self.ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),-7,7])
 	  self.canvas.draw()
 	  self.after(ms = 25, func= self.RealtimePlotter)
 
@@ -206,3 +209,4 @@ app.mainloop()
 
 phasedac.stop()
 ampdac.stop()
+adc.stop()
