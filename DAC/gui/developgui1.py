@@ -9,6 +9,7 @@ from matplotlib import style
 import numpy as np
 import time
 import sys
+from threading import Thread
 
 style.use("ggplot")
 
@@ -80,10 +81,12 @@ class PageThree(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self,parent)
+
+        self.controller = controller
         label = tk.Label(self,text = "Oscilloscope", font = large_font)
         label.pack(pady = 10, padx = 10)
 
-        button1 = ttk.Button(self, text = "Back to Home", command= lambda:controller.show_frame(StartPage))
+        button1 = ttk.Button(self, text = "Back to Home", command= lambda:self.pageChanger())
         button1.pack()
 
         label1 = tk.Label(self,text = "Phase Setting (0 - 360)", font=small_font)
@@ -116,7 +119,26 @@ class PageThree(tk.Frame):
         self.label4.pack(side=tk.TOP)
 
 
-        f = Figure(figsize = (6,4), dpi = 100)
+
+        self.channel = 0
+        self.label5 = tk.Label(self,text = "Current Channel: " + str(self.channel), font=small_font)
+        self.label5.pack(side=tk.BOTTOM)
+
+        frame = tk.Frame(self)
+        frame.pack(side = tk.RIGHT, fill = tk.BOTH)
+
+        chan1 = ttk.Button(frame, text = "Channel 0", command= lambda: self.add(0))
+        chan1.pack(pady = 20, padx = 20)
+        chan2 = ttk.Button(frame, text = "Channel 1", command=  lambda: self.add(1))
+        chan2.pack(pady = 20, padx = 20)
+        chan3 = ttk.Button(frame, text = "Channel 2", command=  lambda: self.add(2))
+        chan3.pack(pady = 20, padx = 20)
+        chan4 = ttk.Button(frame, text = "Channel 3", command=  lambda: self.add(3))
+        chan4.pack(pady = 20, padx = 20 )
+
+
+
+        f = Figure(figsize = (5,4), dpi = 100)
         self.ax = f.add_subplot(111)
         self.ax.grid(True)
 
@@ -139,11 +161,22 @@ class PageThree(tk.Frame):
         #self.after(ms=100, func=self.SinwaveformGenerator)
         #self.after(ms=100, func=self.RealtimePlotter)
 
-        self.SinwaveformGenerator()
-        self.RealtimePlotter()
+        self.thread = Thread(target=self.SinwaveformGenerator,args=())
+        self.thread.start()
 
-    def add(self):
-        pass
+        self.thread1 = Thread(target = self.RealtimePlotter, args=())
+        self.thread1.start()
+
+    def pageChanger(self):
+        self.controller.show_frame(StartPage)
+        self.thread.join()
+        self.thread1.join()
+
+    def add(self,var):
+        self.channel = var
+        self.label5["text"] = "Current Channel is " + str(self.channel)
+
+
     def controlDACPhase(self):
         #print(self.phase.get())
 
@@ -181,6 +214,7 @@ class PageThree(tk.Frame):
     def SinwaveformGenerator(self):
 
       #add adc stuff here
+      #self.values.append(adc.getADCVAL(self.channel))
       self.values.append(np.random.rand()*2 -1)
       self.after(ms = 25, func= self.SinwaveformGenerator)
       #time.sleep(0.025)

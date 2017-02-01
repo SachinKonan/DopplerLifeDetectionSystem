@@ -21,7 +21,7 @@ small_font = ("Verdana", 8)
 
 phasedac = dacThreadVAL(0x63).start()
 ampdac = dacThreadVAL(0x62).start()
-		
+
 adc = ADCThread().start()
 
 class MainGui(tk.Tk):
@@ -90,7 +90,7 @@ class PageThree(tk.Frame):
 		tk.Frame.__init__(self,parent)
 		label = tk.Label(self,text = "Oscilloscope", font = large_font)
 		label.pack(pady = 10, padx = 10)
-		
+
 		button1 = ttk.Button(self, text = "Back to Home", command= lambda: controller.show_frame(StartPage))
 		button1.pack()
 
@@ -144,13 +144,13 @@ class PageThree(tk.Frame):
 		self.canvas.get_tk_widget().pack(side = tk.LEFT, fill = tk.BOTH, expand = True)
 
 		self.values = [0 for x in range(100)]
-		
+
 		#self.after(ms=100, func=self.SinwaveformGenerator)
 		#self.after(ms=100, func=self.RealtimePlotter)
-			
+
 		self.SinwaveformGenerator()
 		self.RealtimePlotter()
-		
+
 	def controlDACPhase(self):
 		#print(self.phase.get())
 

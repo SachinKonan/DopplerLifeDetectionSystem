@@ -43,6 +43,15 @@ class ADCThread:
 				#self.end_time = time.time()
 				#self.samples+=1
 				time.sleep(0.01)
+
+    def getADCVAL(self, var):
+        if(var == 0): return self.adcval1
+        elif(var == 1): return self.adcval2
+        elif(var == 2): return self.adcval3
+        elif(var == 3): return self.adcval4
+        else: pass
+
+    """
 	def getADCVal1(self):
 		return self.adcval1
 
@@ -54,7 +63,7 @@ class ADCThread:
 
 	def getADCVal4(self):
 		return self.adcval4
-
+    """
 	"""
 	def calcSamplingRate(self):
 		tottime = self.end_time - self.start_time
