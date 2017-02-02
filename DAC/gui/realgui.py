@@ -12,6 +12,8 @@ import sys
 from threading import Thread
 from setvalue import dacThreadVAL
 from ADS import ADCThread
+import numpy as np
+
 
 style.use("ggplot")
 
@@ -167,9 +169,9 @@ class PageThree(tk.Frame):
 
 		self.values = [0 for x in range(100)]
 
-		#self.after(ms=100, func=self.SinwaveformGenerator)
-		#self.after(ms=100, func=self.RealtimePlotter)
-
+		self.phaser = 0
+		self.gainer = 0.316
+		
 		self.thread = Thread(target=self.SinwaveformGenerator,args=())
 		self.thread.start()
 
@@ -196,9 +198,9 @@ class PageThree(tk.Frame):
 
 			if(val>= 0 and val <= 360):
 				self.label2["text"] = "Current Phase is: " + valstring
-				#add dac stuff
-				phasedac.updateVal(int((val /5.0) * 4096))
-
+				self.phaser = val
+				#phasedac.updateVal(int((val /5.0) * 4096))
+				self.iqChange()
 			else:
 				self.label2["text"] = "INVALID"
 		except ValueError:
@@ -212,10 +214,11 @@ class PageThree(tk.Frame):
 		try:
 			val = float(valstring)
 
-			if(val>= -100 and val <= 3.3):
+			if(val>= -100 and val <= 0.316):
 				self.label4["text"] = "Current Amplitude is: " + valstring
-				#add dac stuff here
-				ampdac.updateVal(int((val /5.0) * 4096))
+				self.gainer = val
+				#ampdac.updateVal(int((val /5.0) * 4096))
+				self.iqChange()
 			else:
 				self.label4["text"] = "INVALID"
 		except ValueError:
@@ -236,8 +239,23 @@ class PageThree(tk.Frame):
 	  self.line1[0].set_data(CurrentXAxis,plt.array(self.values[-100:]))
 	  self.ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),-5,5])
 	  self.canvas.draw()
-	  self.after(ms = 25, func= self.RealtimePlotter)
-
+	  self.after(ms = 25 , func= self.RealtimePlotter)	
+	
+	def iqChange(self):
+		a = self.gainer/20
+		b = 0.316/20
+			
+		G = 10**a
+		Gmax = 10**b
+		vi = 1.5 + 1.0 * (G/Gmax) * np.cos(self.phaser * np.pi/180)
+		vq = 1.5 + 1.0 * (G/Gmax) * np.sin(self.phaser * np.pi/180)
+		
+		phasedac.updateVal(convertValtoVolt(vi))
+		ampdac.updateVal(convertValtoVolt(vq))
+		
+def convertValtoVolt(x):
+	return int((x/5.0) * 4096)
+		
 app = MainGui()
 app.mainloop()
 
