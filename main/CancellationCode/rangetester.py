@@ -3,14 +3,15 @@ import numpy as np
 import time
 
 MAX_GAIN = 0.316
-gain = -40
+MIN_GAIN = -40
+gain = 0.316
 phase = 30
 keyvals= [10,10]
 
 xvals = []
 yvals = []
 
-while gain <= 0.316:
+while gain >= -40:
     a = gain/20
     b = MAX_GAIN/20
 
@@ -28,5 +29,4 @@ while gain <= 0.316:
     print('I Bit Equivalent: %s' %(int((vi/3.3) * 4096)))
     print('Q Bit Equivalent: %s'% (int((vq/3.3) * 4096)))
     print('XXXXXXXXXXXXXX')
-    time.sleep(1.5)
-    gain +=0.8
+    gain -= 0.3
