@@ -1,6 +1,14 @@
 from setvalue import dacThreadVAL
 from ADS import ADCThread
+import time
+def getValue(fatval):
+	dac2.updateVal(fatval)
+	time.sleep(0.13)
+	ret = adc.getADCVAL(0)
+	print(ret)
+	return ret 
 
+	
 dac1 = dacThreadVAL(address=0x63)
 dac2 = dacThreadVAL(address = 0x62)
 adc = ADCThread(address = 0x48)
@@ -9,27 +17,33 @@ dac1.start()
 dac2.start()
 adc.start()
 
+increment = 0
 ABSVAL = 2.5
 error = 0
-simpval = int((2.5/3.3) * 4096)
+simpval = int((ABSVAL/3.3) * 4096)
+origin = simpval
 returned = 0
 i = 0
 
-getValue()
+returned = getValue(simpval)
 
 error = returned - ABSVAL
-while(abs(error) > 0.009 and i <=50):
-    if(error < ABSVAL):
-        simpval+=1
-    elif(error > ABSVAL):
-        simpval-=1
-    getValue()
-    error = returned - ABSVAL
-    i+=1
+while(abs(error) > 0.001 and i <=200):
+	print('Error is: %s' % error)
+	if(returned < ABSVAL):
+		simpval+=1
+	elif(returned > ABSVAL):
+		simpval-=1
+	print(simpval)	
+	returned = getValue(simpval)
+	error = returned - ABSVAL
+	i+=1
+
+print(simpval - origin)
 
 
+dac1.stop()
+dac2.stop()
+adc.stop()
 
-def getValue():
-    dac1.updateVal(simpval)
-    time.sleep(0.1)
-    returned = adc.getADCVAL(0)
+
