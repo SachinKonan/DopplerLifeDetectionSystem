@@ -32,7 +32,8 @@ if __name__ == "__main__":
 	
 	time.sleep(1)
 	
-	for x in range(0, 361):
+	x = 0
+	while(x <= 360):
 		a = gain/20
 		b = 0.316/20
 			
@@ -59,7 +60,7 @@ if __name__ == "__main__":
 		
 		xvals.append(x)
 		yvals.append(val)
-	
+		x+=0.3
 	
 	
 	
@@ -85,7 +86,7 @@ if __name__ == "__main__":
 	xvals2 = []
 	yvals2 = []
 
-	while gain >= -40:
+	while gain >= -50:
 		a = gain/20
 		b = MAX_GAIN/20
 
@@ -93,16 +94,25 @@ if __name__ == "__main__":
 		Gmax = 10**b
 		vi = 1.5 + 1.0 * (G/Gmax) * np.cos(phase * np.pi/180)
 		vq = 1.5 + 1.0 * (G/Gmax) * np.sin(phase * np.pi/180)
+		
+		print("At gain: %s" % (gain))
 
+		print("Voltage I: %s" % (round(vi,4)))
+		print("Voltage Q: %s" % (round(vq,4)))
+		dac1.updateVal(convertValtoVolt(vi))
+		dac2.updateVal(convertValtoVolt(vq))
+
+		time.sleep(0.1)
+		
 		val = adc.getADCVAL(0)
 		if(val  < keygainvals[1]):
 			keygainvals[0] = gain
 			keygainvals[1] = val
 
-		print('At amp: %s'%(gain))
-		print('I Bit Equivalent: %s' %(int((vi/3.3) * 4096)))
-		print('Q Bit Equivalent: %s'% (int((vq/3.3) * 4096)))
-		print('XXXXXXXXXXXXXX')
+		#print('At amp: %s'%(gain))
+		#print('I Bit Equivalent: %s' %(int((vi/3.3) * 4096)))
+		#print('Q Bit Equivalent: %s'% (int((vq/3.3) * 4096)))
+		#print('XXXXXXXXXXXXXX')
 		
 		xvals2.append(gain)
 		yvals2.append(val)

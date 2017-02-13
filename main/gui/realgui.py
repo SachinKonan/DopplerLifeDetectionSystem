@@ -237,7 +237,7 @@ class PageThree(tk.Frame):
 	def RealtimePlotter(self):
 	  CurrentXAxis=plt.arange(len(self.values)-100,len(self.values),1)
 	  self.line1[0].set_data(CurrentXAxis,plt.array(self.values[-100:]))
-	  self.ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),-5,5])
+	  self.ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),0,5])
 	  self.canvas.draw()
 	  self.after(ms = 25 , func= self.RealtimePlotter)	
 	

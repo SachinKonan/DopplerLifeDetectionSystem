@@ -17,6 +17,7 @@ class dacThreadVAL:
     def start(self):
         print('Starting DAC Thread')
         Thread(target = self.valueset, args = ()).start()
+        return self
 
     def valueset(self):
         while True:
