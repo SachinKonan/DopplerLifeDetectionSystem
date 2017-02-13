@@ -61,9 +61,7 @@ if __name__ == "__main__":
 		yvals.append(val)
 	
 	
-	dac1.stop()
-	dac2.stop()
-	adc.stop()
+	
 	
 	
 	print('Min Phase: %s' % (keyvals[0]))
@@ -71,11 +69,63 @@ if __name__ == "__main__":
 	
 	plt.plot(xvals,yvals)
 	plt.plot(keyvals[0], keyvals[1], marker='x', color = 'r')
-	plt.title('Voltags vs Phase')
+	plt.title('Voltage vs Phase')
 	plt.xlabel('Phase (degrees)')
 	plt.ylabel('Voltage (V)')
 	
 	plt.show()
+	
+	print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+	MAX_GAIN = 0.316
+	MIN_GAIN = -40
+	gain = 0.316
+	phase = keyvals[1]
+	keygainvals = [10,10]
+
+	xvals2 = []
+	yvals2 = []
+
+	while gain >= -40:
+		a = gain/20
+		b = MAX_GAIN/20
+
+		G = 10**a
+		Gmax = 10**b
+		vi = 1.5 + 1.0 * (G/Gmax) * np.cos(phase * np.pi/180)
+		vq = 1.5 + 1.0 * (G/Gmax) * np.sin(phase * np.pi/180)
+
+		val = adc.getADCVAL(0)
+		if(val  < keygainvals[1]):
+			keygainvals[0] = gain
+			keygainvals[1] = val
+
+		print('At amp: %s'%(gain))
+		print('I Bit Equivalent: %s' %(int((vi/3.3) * 4096)))
+		print('Q Bit Equivalent: %s'% (int((vq/3.3) * 4096)))
+		print('XXXXXXXXXXXXXX')
+		
+		xvals2.append(gain)
+		yvals2.append(val)
+		
+		gain -= 0.3
+		
+	
+	print('Min GAIN: %s' % (keygainvals[0]))
+	print('Min Voltage: %s' %(keygainvals[1]))
+	
+	plt.plot(xvals2,yvals2)
+	plt.plot(keygainvals[0], keygainvals[1], marker='x', color = 'r')
+	plt.title('Voltage vs Amplitude')
+	plt.xlabel('Amplitude (dB)')
+	plt.ylabel('Voltage (V)')
+	
+	plt.show()
+	
+	dac1.stop()
+	dac2.stop()
+	adc.stop()
+	
+	
 	"""
 	for x in range(0, 361, 10):
 		a = gain/20
@@ -122,7 +172,7 @@ if __name__ == "__main__":
 	
 	dac1.stop()
 	dac2.stop()
-	"""	
+	""" 
 		
 	
    
