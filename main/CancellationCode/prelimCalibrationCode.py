@@ -77,6 +77,60 @@ if __name__ == "__main__":
 	plt.show()
 	
 	print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+	
+	MAX_GAIN = 0.316
+	
+	phase = keyvals[1]
+	keygainvals = [10,10]
+
+	xvals2 = []
+	yvals2 = []
+	
+	i = 0
+	while i <= 1 :
+		vi = 1.5 + 1.0 * (i) * np.cos(phase * np.pi/180)
+		vq = 1.5 + 1.0 * (i) * np.sin(phase * np.pi/180)
+		
+		print("At gain: %s" % (i))
+
+		print("Voltage I: %s" % (round(vi,4)))
+		print("Voltage Q: %s" % (round(vq,4)))
+		dac1.updateVal(convertValtoVolt(vi))
+		dac2.updateVal(convertValtoVolt(vq))
+
+		time.sleep(0.1)
+		
+		val = adc.getADCVAL(0)
+		if(val  < keygainvals[1]):
+			keygainvals[0] = i
+			keygainvals[1] = val
+
+		#print('At amp: %s'%(gain))
+		#print('I Bit Equivalent: %s' %(int((vi/3.3) * 4096)))
+		#print('Q Bit Equivalent: %s'% (int((vq/3.3) * 4096)))
+		#print('XXXXXXXXXXXXXX')
+		
+		xvals2.append(i)
+		yvals2.append(val)
+		
+		i += 0.001
+		
+	
+	print('Min GAIN: %s' % (keygainvals[0]))
+	print('Min Voltage: %s' %(keygainvals[1]))
+	
+	plt.plot(xvals2,yvals2)
+	plt.plot(keygainvals[0], keygainvals[1], marker='x', color = 'r')
+	plt.title('Voltage vs Amplitude')
+	plt.xlabel('Amplitude (dB)')
+	plt.ylabel('Voltage (V)')
+	
+	plt.show()
+	
+	
+	
+	"""
+	print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
 	MAX_GAIN = 0.316
 	MIN_GAIN = -40
 	gain = 0.316
@@ -130,59 +184,11 @@ if __name__ == "__main__":
 	plt.ylabel('Voltage (V)')
 	
 	plt.show()
-	
+	"""
 	dac1.stop()
 	dac2.stop()
 	adc.stop()
 	
-	
-	"""
-	for x in range(0, 361, 10):
-		a = gain/20
-		b = 0.316/20
-			
-		G = 10**a
-		Gmax = 10**b
-		vi = 1.5 + 1.0 * (G/Gmax) * np.cos(x * np.pi/180)
-		vq = 1.5 + 1.0 * (G/Gmax) * np.sin(x * np.pi/180)
-		print("At phase: " + str(x))
-		print("At amp; " + str(gain))
-		
-		print("Voltage I " + str(round(vi,4)))
-		print("Voltage Q " + str(round(vq,4)))
-		dac1.updateVal(convertValtoVolt(vi))
-		dac2.updateVal(convertValtoVolt(vq))
-		
-		time.sleep(1)
-		
-	phase = 45
-	gain = 0
-	
-	
-	while(gain <= 1):
-		a = gain/20
-		b = 0.316/20
-			
-		G = gain
-		Gmax = 1
-		vi = 1.5 + 1.0 * (G/Gmax) * np.cos(phase * np.pi/180)
-		vq = 1.5 + 1.0 * (G/Gmax) * np.sin(phase * np.pi/180)
-		print("At phase: " + str(phase))
-		print("At amp; " + str(gain))
-		
-		print("Vi " + str(round(vi,4)))
-		print("Vq " + str(round(vq,4)))
-		dac1.updateVal(convertValtoVolt(vi))
-		dac2.updateVal(convertValtoVolt(vq))
-		
-		gain += 0.05
-		time.sleep(1)
-		
-		
-	
-	dac1.stop()
-	dac2.stop()
-	""" 
 		
 	
    
