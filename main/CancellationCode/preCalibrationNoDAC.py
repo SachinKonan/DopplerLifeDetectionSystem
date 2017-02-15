@@ -46,7 +46,7 @@ if __name__ == "__main__":
 		#dac1.updateVal(convertValtoVolt(vi))
 		#dac2.updateVal(convertValtoVolt(vq))
 
-		
+
 
 		val = np.random.rand() * 5
 		if(val  < keyvals[1]):
