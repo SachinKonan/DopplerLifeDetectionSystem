@@ -33,9 +33,15 @@ if __name__ == "__main__":
 
     x = 0
 
+<<<<<<< HEAD
     while(x <= 360):
         a = gain/20
         b = 0.316/20
+=======
+	while(x <= 361):
+		a = gain/20
+		b = 0.316/20
+>>>>>>> 8998d01186c08d7df24b0fbdc6114b641378e133
 
         G = 10**a
         Gmax = 10**b
@@ -91,7 +97,12 @@ if __name__ == "__main__":
         vi = 1.5 + 1.0 * (i) * np.cos(phase * np.pi/180)
         vq = 1.5 + 1.0 * (i) * np.sin(phase * np.pi/180)
 
+<<<<<<< HEAD
         print("At gain: %s" % (i))
+=======
+	"""
+	MAX_GAIN = 0.316
+>>>>>>> 8998d01186c08d7df24b0fbdc6114b641378e133
 
         print("Voltage I: %s" % (round(vi,4)))
         print("Voltage Q: %s" % (round(vq,4)))
@@ -149,7 +160,17 @@ if __name__ == "__main__":
         vi = 1.5 + 1.0 * (G/Gmax) * np.cos(phase * np.pi/180)
         vq = 1.5 + 1.0 * (G/Gmax) * np.sin(phase * np.pi/180)
 
+<<<<<<< HEAD
         print("At gain: %s" % (gain))
+=======
+	
+	print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+	MAX_GAIN = 0.316
+	MIN_GAIN = -40
+	gain = 0.316
+	phase = keyvals[1]
+	keygainvals = [10,10]
+>>>>>>> 8998d01186c08d7df24b0fbdc6114b641378e133
 
         print("Voltage I: %s" % (round(vi,4)))
         print("Voltage Q: %s" % (round(vq,4)))
