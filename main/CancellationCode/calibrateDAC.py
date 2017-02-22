@@ -4,7 +4,7 @@ import time
 def getValue(fatval):
 	dac2.updateVal(fatval)
 	time.sleep(0.13)
-	ret = adc.getADCVAL(0)
+	ret = adc.getADCVAL(1)
 	print(ret)
 	return ret 
 
@@ -29,13 +29,14 @@ returned = getValue(simpval)
 
 error = returned - ABSVAL
 while(abs(error) > 0.001 and i <=200):
-	print('Error is: %s' % error)
+	#print('Error is: %s' % error)
 	if(returned < ABSVAL):
 		simpval+=1
 	elif(returned > ABSVAL):
 		simpval-=1
 	print(simpval)	
 	returned = getValue(simpval)
+	print(returned)
 	error = returned - ABSVAL
 	i+=1
 
