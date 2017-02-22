@@ -33,16 +33,10 @@ if __name__ == "__main__":
 
     x = 0
 
-<<<<<<< HEAD
-    while(x <= 360):
+    while(x <= 361):
         a = gain/20
         b = 0.316/20
-=======
-	while(x <= 361):
-		a = gain/20
-		b = 0.316/20
->>>>>>> 8998d01186c08d7df24b0fbdc6114b641378e133
-
+        
         G = 10**a
         Gmax = 10**b
         vi = 1.5 + 1.0 * (G/Gmax) * np.cos(x * np.pi/180)
@@ -80,6 +74,20 @@ if __name__ == "__main__":
 
     plt.show()
 
+    xlist = []
+    ylist = []
+    
+    for x in range(0, 200,1):
+        xlist.append(x)
+        ylist.append(adc.getADCVAL(0))
+        time.sleep(0.1)
+        
+    plt.plot(xlist,ylist)
+    
+    plt.title('Control')
+    plt.xlabel('Samples')
+    plt.ylabel('Voltage (V)')
+    plt.show()
     
     """
     print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -97,12 +105,9 @@ if __name__ == "__main__":
         vi = 1.5 + 1.0 * (i) * np.cos(phase * np.pi/180)
         vq = 1.5 + 1.0 * (i) * np.sin(phase * np.pi/180)
 
-<<<<<<< HEAD
         print("At gain: %s" % (i))
-=======
-	"""
-	MAX_GAIN = 0.316
->>>>>>> 8998d01186c08d7df24b0fbdc6114b641378e133
+    
+    MAX_GAIN = 0.316
 
         print("Voltage I: %s" % (round(vi,4)))
         print("Voltage Q: %s" % (round(vq,4)))
@@ -140,7 +145,7 @@ if __name__ == "__main__":
 
 
 
-    """
+    
     print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
     MAX_GAIN = 0.316
     MIN_GAIN = -40
@@ -160,17 +165,14 @@ if __name__ == "__main__":
         vi = 1.5 + 1.0 * (G/Gmax) * np.cos(phase * np.pi/180)
         vq = 1.5 + 1.0 * (G/Gmax) * np.sin(phase * np.pi/180)
 
-<<<<<<< HEAD
         print("At gain: %s" % (gain))
-=======
-	
-	print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-	MAX_GAIN = 0.316
-	MIN_GAIN = -40
-	gain = 0.316
-	phase = keyvals[1]
-	keygainvals = [10,10]
->>>>>>> 8998d01186c08d7df24b0fbdc6114b641378e133
+    
+    print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+    MAX_GAIN = 0.316
+    MIN_GAIN = -40
+    gain = 0.316
+    phase = keyvals[1]
+    keygainvals = [10,10]
 
         print("Voltage I: %s" % (round(vi,4)))
         print("Voltage Q: %s" % (round(vq,4)))
@@ -203,8 +205,10 @@ if __name__ == "__main__":
     plt.title('Voltage vs Amplitude')
     plt.xlabel('Amplitude (dB)')
     plt.ylabel('Voltage (V)')
-
+    
+    
     plt.show()
+    """
     
     dac1.stop()
     dac2.stop()
