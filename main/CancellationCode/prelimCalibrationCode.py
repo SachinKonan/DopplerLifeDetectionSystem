@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
 	x = 0
 
-	while(x <= 360):
+	while(x <= 361):
 		a = gain/20
 		b = 0.316/20
 
@@ -78,6 +78,7 @@ if __name__ == "__main__":
 
 	print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
 
+	"""
 	MAX_GAIN = 0.316
 
 	phase = keyvals[0]
@@ -129,7 +130,7 @@ if __name__ == "__main__":
 
 
 
-	"""
+	
 	print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
 	MAX_GAIN = 0.316
 	MIN_GAIN = -40
