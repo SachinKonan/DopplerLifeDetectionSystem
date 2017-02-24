@@ -2,6 +2,8 @@ import time
 import numpy as np
 from setvalue import dacThreadVAL
 from ADS import ADCThread
+import matplotlib.pyplot as plt
+
 
 def convertValtoVolt(x):
 	return int((x/3.3) * 4096.0)
@@ -15,20 +17,17 @@ if __name__ == "__main__":
 	dac2 = dacThreadVAL(0x62)
 	dac1.start()
 	dac2.start()
+	adc.start()
 
 	time.sleep(1)
 	print('Press Ctrl-C to quit...')
 	dut = True
 	
-	
-	gain = -60
+	"""
+	gain = 0.316
 	#dac1.updateVal(convertValtoVolt(2.5))
 	#dac2.updateVal(convertValtoVolt(2.5))
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> 8998d01186c08d7df24b0fbdc6114b641378e133
 	for x in range(0, 361, 10):
 		a = gain/20
 		b = 0.316/20
@@ -48,30 +47,44 @@ if __name__ == "__main__":
 		time.sleep(1)
 	
 	"""
+	
 	phase = 45
 	gain = 0
-
+	
+	xlist = []
+	ylist = []
+	
 	while(gain <= 1):
-		a = gain/20
-		b = 0.316/20
-
-		G = gain
-		Gmax = 1.0
-		vi = 1.5 + 1.0 * (G/Gmax) * np.cos(phase * np.pi/180)
-		vq = 1.5 + 1.0 * (G/Gmax) * np.sin(phase * np.pi/180)
-		print("At phase: " + str(phase))
-		print("At amp; " + str(gain))
+		vi = 1.5 + 1.0 * (gain) * np.cos(phase * np.pi/180)
+		vq = 1.5 + 1.0 * (gain) * np.sin(phase * np.pi/180)
+		#print("At phase: " + str(phase))
+		#print("At amp; " + str(gain))
 
 		print("Vi " + str(round(vi,4)))
 		print("Vq " + str(round(vq,4)))
 		dac1.updateVal(convertValtoVolt(vi))
 		dac2.updateVal(convertValtoVolt(vq))
 
-		gain += 0.05
-		time.sleep(1)
+		gain += 0.1
+		
+		time.sleep(0.09)
+		
+		val = adc.getADCVAL(0)
+			
+		print("At gain: %s" % (gain))
+		print('output: %s' % (val))
+		
+		xlist.append(gain)
+		ylist.append(val)
 
-<<<<<<< HEAD
+	plt.plot(xlist,ylist)
+	plt.title('Voltage vs Amplitude')
+	plt.xlabel('Amplitude (dB)')
+	plt.ylabel('Voltage (V)')
+
+	plt.show()
 	
+	"""
 	phase = 45
 	gain = 0.316
 	MAX_GAIN = 0.316
@@ -96,10 +109,7 @@ if __name__ == "__main__":
 
 		gain -= 0.5
 	"""
-=======
 
-
->>>>>>> 8998d01186c08d7df24b0fbdc6114b641378e133
 	dac1.stop()
 	dac2.stop()
-		"""
+	adc.stop()
