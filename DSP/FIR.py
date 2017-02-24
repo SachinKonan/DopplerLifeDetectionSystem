@@ -25,4 +25,5 @@ taps = signal.remez(numtaps, [0, cutoff, cutoff + trans_width, 0.5*fs],
 w, h = signal.freqz(taps, [1], worN=2000)
 
 plt.plot(w,h)
+plt.grid()
 plt.show()
