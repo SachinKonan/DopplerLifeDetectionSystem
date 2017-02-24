@@ -2,24 +2,27 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-time = np.arange(0, 10,0.02)
-
+time = np.arange(0, 10,0.002)
+frequency = 2.4 * (10**9)
+print(frequency )
 plt.ion()
 
 for phase in range(0, 720,10):
-    plt.ylim(0,400)
+    plt.ylim(-10,10)
     plt.title('Radar Simulation')
 
-    vco = 6*np.sin(2 * np.pi * time + 40 * np.pi/180)
-    LOintermediate = vco -3
-    rfout = vco -3
+    vco = 6*np.sin(2 * np.pi * time * frequency + 40 * np.pi/180)
+    LOintermediate = 3*np.sin(2 * np.pi * time * frequency + 40 * np.pi/180)
+    rfout = 3*np.sin(2 * np.pi * time * frequency + 40 * np.pi/180)
 
-    LO = LOintermediate -3
-    cancel = LOintermediate -3
+    LO = np.sin(2 * np.pi * time * frequency + 40 * np.pi/180)
+    cancel = np.sin(2 * np.pi * time * frequency + 40 * np.pi/180)
 
-    vector = np.sin(2 * np.pi * time + phase * np.pi/180) - 10
-    visualizer = 6*np.sin(2 * np.pi * time + phase * np.pi/180) -3 + rfout
+    # 1- 10 for 10 dB attenuation from modulator at max gain setting
 
+    vector = (1-10)*np.sin(2 * np.pi * time * frequency + phase * np.pi/180) - 10
+    visualizer = 3*np.sin(2 * np.pi * time * frequency+ phase * np.pi/180) + rfout
+    # i am using this to visualize the degree of cancellation between the modulator and the rf input
     adder = vector + rfout
 
     mixer = LO * adder
