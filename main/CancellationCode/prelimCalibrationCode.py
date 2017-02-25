@@ -22,13 +22,10 @@ if __name__ == "__main__":
 	#dac2.updateVal(convertValtoVolt(2.5))
 
 	gain = -10
-<<<<<<< HEAD
 	GMAX = -10
 	
-=======
 	MAX_GAIN = -10
 
->>>>>>> refs/remotes/origin/master
 	keyvals= [10,10]
 
 	xvals = []
@@ -40,13 +37,10 @@ if __name__ == "__main__":
 
 	while(x <=360):
 		a = gain/20
-<<<<<<< HEAD
 		b = GMAX/20
 		
-=======
 		b = MAX_GAIN/20
 
->>>>>>> refs/remotes/origin/master
 		G = 10**a
 		Gmax = 10**b
 		vi = 1.5 + 1.0 * (G/Gmax) * np.cos(x * np.pi/180)
@@ -83,7 +77,6 @@ if __name__ == "__main__":
 	plt.ylabel('Voltage (V)')
 
 	plt.show()
-<<<<<<< HEAD
 	
 	
 	
@@ -145,10 +138,8 @@ if __name__ == "__main__":
 	adc.stop()
 	
 	
-=======
 
 
->>>>>>> refs/remotes/origin/master
 	"""
 	xlist = []
 	ylist = []
