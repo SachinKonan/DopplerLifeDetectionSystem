@@ -166,9 +166,9 @@ class PageThree(tk.Frame):
         valstring = str(self.phase.get())
 
         try:
-            val = float(valstring)
-            print(val)
-            #phasedac.updateVal(val)
+            val = int(valstring)
+            #print(val)
+            phasedac.updateVal(val)
         except ValueError:
             print("cant convert")
         self.update()
@@ -178,9 +178,9 @@ class PageThree(tk.Frame):
         valstring = str(self.amplitude.get())
 
         try:
-            val = float(valstring)
-            print(val)
-            #ampdac.updateVal(val)
+            val = int(valstring)
+            #print(val)
+            ampdac.updateVal(val)
         except ValueError:
             print("can't convert")
         self.update()
@@ -191,7 +191,8 @@ class PageThree(tk.Frame):
       #self.values.append(adc.getADCVAL(self.channel))
       self.controlDACPhase()
       self.controlDACAmp()
-      self.values.append(np.random.rand()*2 -1)
+      #self.values.append(np.random.rand()*2 -1)
+      self.values.append(adc.getADCVAL(self.channel))
       self.after(ms = 25, func= self.SinwaveformGenerator)
       #time.sleep(0.025)
       #self.SinwaveformGenerator()

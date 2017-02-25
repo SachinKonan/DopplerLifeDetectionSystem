@@ -22,8 +22,13 @@ if __name__ == "__main__":
 	#dac2.updateVal(convertValtoVolt(2.5))
 
 	gain = -10
+<<<<<<< HEAD
 	GMAX = -10
 	
+=======
+	MAX_GAIN = -10
+
+>>>>>>> refs/remotes/origin/master
 	keyvals= [10,10]
 
 	xvals = []
@@ -35,8 +40,13 @@ if __name__ == "__main__":
 
 	while(x <=360):
 		a = gain/20
+<<<<<<< HEAD
 		b = GMAX/20
 		
+=======
+		b = MAX_GAIN/20
+
+>>>>>>> refs/remotes/origin/master
 		G = 10**a
 		Gmax = 10**b
 		vi = 1.5 + 1.0 * (G/Gmax) * np.cos(x * np.pi/180)
@@ -61,8 +71,8 @@ if __name__ == "__main__":
 		xvals.append(x)
 		yvals.append(val)
 		x+=0.5
-	
-	
+
+
 	print('Min Phase: %s' % (keyvals[0]))
 	print('Min Voltage: %s' %(keyvals[1]))
 
@@ -73,6 +83,7 @@ if __name__ == "__main__":
 	plt.ylabel('Voltage (V)')
 
 	plt.show()
+<<<<<<< HEAD
 	
 	
 	
@@ -134,22 +145,26 @@ if __name__ == "__main__":
 	adc.stop()
 	
 	
+=======
+
+
+>>>>>>> refs/remotes/origin/master
 	"""
 	xlist = []
 	ylist = []
-	
+
 	for x in range(0, 200,1):
 		xlist.append(x)
 		ylist.append(adc.getADCVAL(0))
 		time.sleep(0.1)
-		
+
 	plt.plot(xlist,ylist)
-	
+
 	plt.title('Control')
 	plt.xlabel('Samples')
 	plt.ylabel('Voltage (V)')
 	plt.show()
-	
+
 	print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
 
 	MAX_GAIN = 0.316
@@ -166,7 +181,7 @@ if __name__ == "__main__":
 		vq = 1.5 + 1.0 * (i) * np.sin(phase * np.pi/180)
 
 		print("At gain: %s" % (i))
-	
+
 	MAX_GAIN = 0.316
 
 		print("Voltage I: %s" % (round(vi,4)))
@@ -202,7 +217,7 @@ if __name__ == "__main__":
 	plt.ylabel('Voltage (V)')
 
 	plt.show()
-	
+
 	"""
 
 	"""
@@ -224,20 +239,20 @@ if __name__ == "__main__":
 		Gmax = 10**b
 		vi = 1.5 + 1.0 * (G/Gmax) * np.cos(phase * np.pi/180)
 		vq = 1.5 + 1.0 * (G/Gmax) * np.sin(phase * np.pi/180)
-		
+
 		dac1.updateVal(convertValtoVolt(vi))
 		dac2.updateVal(convertValtoVolt(vq))
 
 		time.sleep(0.1)
-		
+
 		val = adc.getADCVAL(0)
 		if(val  < keygainvals[1]):
 			keygainvals[0] = gain
 			keygainvals[1] = val
-			
+
 		print("At gain: %s" % (gain))
 		print('output: %s' % (val))
-		
+
 		xvals2.append(gain)
 		yvals2.append(val)
 
@@ -254,9 +269,9 @@ if __name__ == "__main__":
 	plt.ylabel('Voltage (V)')
 
 	plt.show()
-	
-	
-	
+
+
+
 	print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
 	MAX_GAIN = 0.316
 	MIN_GAIN = -40
@@ -285,7 +300,7 @@ if __name__ == "__main__":
 		yvals2.append(val)
 
 		gain -= 0.2
-	
+
 	print('MIN Phase: %s' %(phase))
 	print('Min GAIN: %s' % (keygainvals[0]))
 	print('Min Voltage: %s' %(keygainvals[1]))
@@ -295,10 +310,17 @@ if __name__ == "__main__":
 	plt.title('Voltage vs Amplitude')
 	plt.xlabel('Amplitude (dB)')
 	plt.ylabel('Voltage (V)')
-	
-	
+
+
 	plt.show()
-	
+
 	"""
+<<<<<<< HEAD
 	
 	
+=======
+
+	dac1.stop()
+	dac2.stop()
+	adc.stop()
+>>>>>>> refs/remotes/origin/master
