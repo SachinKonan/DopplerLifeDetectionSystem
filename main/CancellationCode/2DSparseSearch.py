@@ -16,8 +16,8 @@ adc.start()
 dac1.start()
 dac2.start()
 
-for i in range(0, tot_size,increment):
-    for q in range(0, tot_size,increment):
+for i in range(0, tot_size+0.1,increment):
+    for q in range(0, tot_size+0.1,increment):
         #add dac stuff
         dac1.updateVal(i)
         dac2.updateVal(q)
