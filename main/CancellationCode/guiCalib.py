@@ -17,6 +17,8 @@ from threading import Thread
 
 def convertValtoVolt(x):
 	return int((x/3.3) * 4096.0)
+
+
 class MainGui(tk.Tk):
 	def __init__(self, *args, **kwargs):
 		tk.Tk.__init__(self, *args, **kwargs)
@@ -38,8 +40,6 @@ class MainGui(tk.Tk):
 		frame = self.frames[cont]
 		frame.tkraise()
 
-def qf(sting):
-	print(sting)
 
 class StartPage(tk.Frame):
 	def __init__(self, parent, controller):
@@ -88,11 +88,11 @@ class PageThree(tk.Frame):
 
 		button1 = ttk.Button(self, text = "Back to Home", command= lambda:self.pageChanger())
 		button1.pack(tk.TOP)
-		
+
 		self.channel = 0
 		self.label5 = tk.Label(self,text = "Current Channel: " + str(self.channel), font=small_font)
 		self.label5.pack(side=tk.BOTTOM)
-		
+
 		frame = tk.Frame(self)
 		frame.pack(side = tk.RIGHT, fill = tk.BOTH)
 
@@ -129,7 +129,7 @@ class PageThree(tk.Frame):
 
 		self.phaser = 0
 		self.gainer = 0.316
-		
+
 		self.thread = Thread(target=self.SinwaveformGenerator,args=())
 		self.thread.start()
 
@@ -161,18 +161,18 @@ class PageThree(tk.Frame):
 	  self.line1[0].set_data(CurrentXAxis,plt.array(self.values[-100:]))
 	  self.ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),-5,5])
 	  self.canvas.draw()
-	  self.after(ms = 25 , func= self.RealtimePlotter)  
-		
+	  self.after(ms = 25 , func= self.RealtimePlotter)
+
 if __name__ == "__main__":
 	#/home/pi/Documents/PythonProjects/ScienceFair2016/DAC/simptest.py
-	
+
 	global adc
 	global dac1
 	global dac2
 	global cancelphase
 	global cancelgain
-	
-	
+
+
 	adc = ADCThread(address=0x48).start()
 	dac1 = dacThreadVAL(0x63).start()
 	dac2 = dacThreadVAL(0x62).start()
@@ -186,7 +186,7 @@ if __name__ == "__main__":
 
 	gain = -10
 	GMAX = -10
-	
+
 	MAX_GAIN = -10
 
 	keyvals= [10,10]
@@ -201,7 +201,7 @@ if __name__ == "__main__":
 	while(x <=360):
 		a = gain/20
 		b = GMAX/20
-		
+
 		b = MAX_GAIN/20
 
 		G = 10**a
@@ -240,12 +240,12 @@ if __name__ == "__main__":
 	plt.ylabel('Voltage (V)')
 
 	plt.show()
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
 	MAX_GAIN = -10
 	gain = -10
@@ -263,20 +263,20 @@ if __name__ == "__main__":
 		Gmax = 10**b
 		vi = 1.5 + 1.0 * (G/Gmax) * np.cos(phase * np.pi/180)
 		vq = 1.5 + 1.0 * (G/Gmax) * np.sin(phase * np.pi/180)
-		
+
 		dac1.updateVal(convertValtoVolt(vi))
 		dac2.updateVal(convertValtoVolt(vq))
 
 		time.sleep(0.1)
-		
+
 		val = adc.getADCVAL(0)
 		if(val  < keygainvals[1]):
 			keygainvals[0] = gain
 			keygainvals[1] = val
-			
+
 		print("At gain: %s" % (gain))
 		print('output: %s' % (val))
-		
+
 		xvals2.append(gain)
 		yvals2.append(val)
 
@@ -293,18 +293,18 @@ if __name__ == "__main__":
 	plt.ylabel('Voltage (V)')
 
 	plt.show()
-	
+
 	cancelgain = keygainvals[0]
 	cancelphase = keyvals[0]
-	
-	
+
+
 	style.use("ggplot")
 
 	matplotlib.use("TkAgg")
 
 	large_font = ("Verdana", 12)
 	small_font = ("Verdana", 8)
-		
+
 	app = MainGui()
 	app.mainloop()
 
@@ -312,4 +312,3 @@ if __name__ == "__main__":
 	dac1.stop()
 	dac2.stop()
 	adc.stop()
-	

@@ -23,9 +23,6 @@ large_font = ("Verdana", 12)
 small_font = ("Verdana", 8)
 
 
-phasedac = dacThreadVAL(0x63).start()
-ampdac = dacThreadVAL(0x62).start()
-
 adc = ADCThread().start()
 
 class MainGui(tk.Tk):
@@ -100,35 +97,6 @@ class PageThree(tk.Frame):
 		button1 = ttk.Button(self, text = "Back to Home", command= lambda:self.pageChanger())
 		button1.pack()
 
-		label1 = tk.Label(self,text = "Phase Setting (0 - 360)", font=small_font)
-		label1.pack(side = tk.TOP)
-
-		self.phase = tk.StringVar()
-		eBox = tk.Entry(self, textvariable=self.phase)
-		eBox.pack(side=tk.TOP)
-
-		buttonphase = ttk.Button(self, text = "Send to DAC1", command=self.controlDACPhase)
-		buttonphase.pack(side = tk.TOP)
-
-		self.label2 = tk.Label(self,text = "Current Phase is: ", font=small_font)
-		self.label2.pack(side=tk.TOP)
-
-		#########################
-
-		label3 = tk.Label(self,text = "Amplitude Setting (0.316:-100)", font=small_font)
-		label3.pack(side = tk.TOP)
-
-		self.amp = tk.StringVar()
-		eBox1 = tk.Entry(self, textvariable=self.amp)
-		eBox1.pack(side=tk.TOP)
-
-		buttonamp = ttk.Button(self, text = "Send to DAC2", command=self.controlDACAmp)
-		buttonamp.pack(side = tk.TOP)
-
-
-		self.label4 = tk.Label(self,text = "Current Amplitude: ", font=small_font)
-		self.label4.pack(side=tk.TOP)
-
 
 
 		self.channel = 0
@@ -171,7 +139,7 @@ class PageThree(tk.Frame):
 
 		self.phaser = 0
 		self.gainer = 0.316
-		
+
 		self.thread = Thread(target=self.SinwaveformGenerator,args=())
 		self.thread.start()
 
@@ -188,43 +156,6 @@ class PageThree(tk.Frame):
 		self.label5["text"] = "Current Channel is " + str(self.channel)
 
 
-	def controlDACPhase(self):
-		#print(self.phase.get())
-
-		valstring = self.phase.get()
-
-		try:
-			val = float(valstring)
-
-			if(val>= 0 and val <= 360):
-				self.label2["text"] = "Current Phase is: " + valstring
-				self.phaser = val
-				#phasedac.updateVal(int((val /5.0) * 4096))
-				self.iqChange()
-			else:
-				self.label2["text"] = "INVALID"
-		except ValueError:
-			print("cant convert")
-		self.update()
-
-	def controlDACAmp(self):
-
-		valstring = self.amp.get()
-
-		try:
-			val = float(valstring)
-
-			if(val>= -100 and val <= 0.316):
-				self.label4["text"] = "Current Amplitude is: " + valstring
-				self.gainer = val
-				#ampdac.updateVal(int((val /5.0) * 4096))
-				self.iqChange()
-			else:
-				self.label4["text"] = "INVALID"
-		except ValueError:
-			print("can't convert")
-		self.update()
-
 	def SinwaveformGenerator(self):
 
 	  #add adc stuff here
@@ -239,23 +170,12 @@ class PageThree(tk.Frame):
 	  self.line1[0].set_data(CurrentXAxis,plt.array(self.values[-100:]))
 	  self.ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),-5,5])
 	  self.canvas.draw()
-	  self.after(ms = 25 , func= self.RealtimePlotter)	
-	
-	def iqChange(self):
-		a = self.gainer/20
-		b = 0.316/20
-			
-		G = 10**a
-		Gmax = 10**b
-		vi = 1.5 + 1.0 * (G/Gmax) * np.cos(self.phaser * np.pi/180)
-		vq = 1.5 + 1.0 * (G/Gmax) * np.sin(self.phaser * np.pi/180)
-		
-		phasedac.updateVal(convertValtoVolt(vi))
-		ampdac.updateVal(convertValtoVolt(vq))
-		
+	  self.after(ms = 25 , func= self.RealtimePlotter)
+
+
 def convertValtoVolt(x):
 	return int((x/3.3) * 4096)
-		
+
 app = MainGui()
 app.mainloop()
 
