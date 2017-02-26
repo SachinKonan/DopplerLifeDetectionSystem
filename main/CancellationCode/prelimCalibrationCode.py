@@ -53,7 +53,7 @@ if __name__ == "__main__":
         dac1.updateVal(convertValtoVolt(vi))
         dac2.updateVal(convertValtoVolt(vq))
 
-        time.sleep(0.1)
+        time.sleep(0.08)
 
         val = adc.getADCVAL(0)
         if(val  < keyvals[1]):
