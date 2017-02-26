@@ -129,7 +129,7 @@ class PageThree(tk.Frame):
 		self.ax.set_title("Realtime Waveform Plot")
 		self.ax.set_xlabel("Time")
 		self.ax.set_ylabel("Amplitude")
-		self.ax.axis([0,100,-5,5])
+		self.ax.axis([0,100,0.0,0.2])
 		self.line1= self.ax.plot(xAchse,yAchse,'-')
 
 		self.canvas = FigureCanvasTkAgg(f,master=self)
@@ -168,7 +168,7 @@ class PageThree(tk.Frame):
 	def RealtimePlotter(self):
 	  CurrentXAxis=plt.arange(len(self.values)-100,len(self.values),1)
 	  self.line1[0].set_data(CurrentXAxis,plt.array(self.values[-100:]))
-	  self.ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),-5,5])
+	  self.ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),0.0,0.2])
 	  self.canvas.draw()
 	  self.after(ms = 25 , func= self.RealtimePlotter)
 
@@ -179,6 +179,4 @@ def convertValtoVolt(x):
 app = MainGui()
 app.mainloop()
 
-phasedac.stop()
-ampdac.stop()
 adc.stop()
