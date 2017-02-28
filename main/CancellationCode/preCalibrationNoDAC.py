@@ -62,6 +62,7 @@ if __name__ == "__main__":
 	print('Min Phase: %s' % (keyvals[0]))
 	print('Min Voltage: %s' %(keyvals[1]))
 
+	"""
 	plt.plot(xvals,yvals)
 	plt.plot(keyvals[0], keyvals[1], marker='x', color = 'r')
 	plt.title('Voltage vs Phase')
@@ -69,11 +70,12 @@ if __name__ == "__main__":
 	plt.ylabel('Voltage (V)')
 
 	plt.show()
+	"""
 
 	print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-	MAX_GAIN = 0.316
-	MIN_GAIN = -40
-	gain = 0.316
+	MAX_GAIN = -10
+	MIN_GAIN = -70
+	gain = -10
 	phase = keyvals[1]
 	keygainvals = [10,10]
 
@@ -96,8 +98,6 @@ if __name__ == "__main__":
 		#dac1.updateVal(convertValtoVolt(vi))
 		#dac2.updateVal(convertValtoVolt(vq))
 
-		time.sleep(0.1)
-
 		val = np.random.rand()*5
 
 		if(val  < keygainvals[1]):
@@ -105,14 +105,14 @@ if __name__ == "__main__":
 			keygainvals[1] = val
 
 		print('At amp: %s'%(gain))
-		print('I Bit Equivalent: %s' %(int((vi/3.3) * 4096)))
-		print('Q Bit Equivalent: %s'% (int((vq/3.3) * 4096)))
+		print('I Bit Equivalent: %s' %(vi))
+		print('Q Bit Equivalent: %s'% (vq))
 		print('XXXXXXXXXXXXXX')
 
 		xvals2.append(gain)
 		yvals2.append(val)
 
-		gain -= 0.3
+		gain -= 0.2
 
 
 	print('Min GAIN: %s' % (keygainvals[0]))

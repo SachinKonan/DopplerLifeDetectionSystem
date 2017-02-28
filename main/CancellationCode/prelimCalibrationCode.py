@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     gain = -10
     GMAX = -10
-    
+
     MAX_GAIN = -10
 
     keyvals= [10,10]
@@ -38,7 +38,7 @@ if __name__ == "__main__":
     while(x <=360):
         a = gain/20
         b = GMAX/20
-        
+
         b = MAX_GAIN/20
 
         G = 10**a
@@ -77,12 +77,7 @@ if __name__ == "__main__":
     plt.ylabel('Voltage (V)')
 
     plt.show()
-    
-    
-    
-    
-    
-    
+
     print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
     MAX_GAIN = -10
     gain = -10
@@ -100,24 +95,24 @@ if __name__ == "__main__":
         Gmax = 10**b
         vi = 1.5 + 1.0 * (G/Gmax) * np.cos(phase * np.pi/180)
         vq = 1.5 + 1.0 * (G/Gmax) * np.sin(phase * np.pi/180)
-        
+
         dac1.updateVal(convertValtoVolt(vi))
         dac2.updateVal(convertValtoVolt(vq))
 
         time.sleep(0.1)
-        
+
         val = adc.getADCVAL(0)
         if(val  < keygainvals[1]):
             keygainvals[0] = gain
             keygainvals[1] = val
-            
+
         print("At gain: %s" % (gain))
         print('output: %s' % (val))
-        
+
         xvals2.append(gain)
         yvals2.append(val)
 
-        gain -=0.5
+        gain -=0.2
 
 
     print('Min GAIN: %s' % (keygainvals[0]))
@@ -130,8 +125,7 @@ if __name__ == "__main__":
     plt.ylabel('Voltage (V)')
 
     plt.show()
-    
+
     dac1.stop()
     dac2.stop()
     adc.stop()
-    
