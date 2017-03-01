@@ -3,7 +3,7 @@ import numpy as np
 
 
 time = np.arange(0, 10,0.002)
-frequency = 2.4 * (10**9)
+frequency = 2.4* (10**9)
 print(frequency )
 plt.ion()
 
@@ -20,7 +20,7 @@ for phase in range(0, 720,10):
 
     # 1- 10 for 10 dB attenuation from modulator at max gain setting
 
-    vector = (1-10)*np.sin(2 * np.pi * time * frequency + phase * np.pi/180)
+    vector = (1-10)*np.sin(2 * np.pi * time * frequency + phase * np.pi/180) - 10
     visualizer = 3*np.sin(2 * np.pi * time * frequency+ phase * np.pi/180) + rfout
     # i am using this to visualize the degree of cancellation between the modulator and the rf input
     adder = vector + rfout
