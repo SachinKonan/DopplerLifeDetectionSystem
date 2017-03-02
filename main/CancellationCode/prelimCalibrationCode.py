@@ -56,11 +56,11 @@ if __name__ == "__main__":
         time.sleep(0.08)
 
         val = adc.getADCVAL(0)
-        if(val  < keyvals[1]):
+        if(abs(val)  < keyvals[1]):
             keyvals[0] = x
             keyvals[1] = val
         print("at phase: %s"%(x))
-        print('output: %s' % (val))
+        print('output: %s' % (abs(val)))
 
         xvals.append(x)
         yvals.append(val)
@@ -82,6 +82,7 @@ if __name__ == "__main__":
     MAX_GAIN = -10
     gain = -10
     phase = keyvals[0]
+    #phase = 130
     keygainvals = [10,10]
 
     xvals2 = []
@@ -102,7 +103,7 @@ if __name__ == "__main__":
         time.sleep(0.1)
 
         val = adc.getADCVAL(0)
-        if(val  < keygainvals[1]):
+        if(abs(val)  < keygainvals[1]):
             keygainvals[0] = gain
             keygainvals[1] = val
 
