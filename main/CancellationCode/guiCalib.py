@@ -26,7 +26,7 @@ small_font = ("Verdana", 8)
 adc = ADCThread(address=0x48).start()
 dac1 = dacThreadVAL(0x63).start()
 dac2 = dacThreadVAL(0x62).start()
-    
+
 def convertValtoVolt(x):
     return int((x/3.3) * 4096.0)
 
@@ -180,106 +180,96 @@ class PageThree(tk.Frame):
 if __name__ == "__main__":
     global cancelphase
     global cancelgain
-    
-    #/home/pi/Documents/PythonProjects/ScienceFair2016/DAC/simptest.py
-
-    
 
     time.sleep(1)
     print('Press Ctrl-C to quit...')
     dut = True
+
+    gain = -10
+    MAX_GAIN = -10
+
+    keyvals= [ [0,0,0] , 10]
+
+    xvals = []
+    yvals = []
+
+    time.sleep(1)
+
+    x = 0
+
+    while(x <=360):
+        a = gain/20
+        b = MAX_GAIN/20
+
+        G = 10**a
+        Gmax = 10**b
+        vi = 1.5 + 1.0 * (G/Gmax) * np.cos(x * np.pi/180)
+        vq = 1.5 + 1.0 * (G/Gmax) * np.sin(x * np.pi/180)
+
+        biti = convertValtoVolt(vi)
+        bitq = convertValtoVolt(vq)
+
+        dac1.updateVal(biti)
+        dac2.updateVal(bitq)
+
+        time.sleep(0.08)
+
+        val = adc.getADCVAL(0)
+
+        if(abs(val)  < abs(keyvals[1])):
+            keyvals[0] = [biti, bitq, x]
+            keyvals[1] = val
+
+        print("at phase: %s" % (x))
+        print('output: %s' % (val))
+
+        xvals.append(x)
+        yvals.append(val)
+
+        x+=0.5
+
+    print('Min Phase: %s' % (keyvals[0][2]))
+    print('Min Voltage: %s' %(keyvals[1]))
+
+    plt.plot(xvals,yvals)
+    plt.plot(keyvals[0][2], keyvals[1], marker='x', color = 'r')
+    plt.title('Voltage vs Phase')
+    plt.xlabel('Phase (degrees)')
+    plt.ylabel('Voltage (V)')
+
+    plt.show()
+
+
+    biti = keyvals[0][0]
+    bitq = keyvals[0][1]
+
+    print('I bit: %s' % (biti))
+    print('I bit: %s' % (bitq))
     
-    
-    #gain = 0.316
-    #dac1.updateVal(convertValtoVolt(2.5))
-    #dac2.updateVal(convertValtoVolt(2.5))
-    
-    for i in range(0, 2):
-        gain = -10
-        MAX_GAIN = -10
+    dac1.updateVal(biti)
+    dac2.updateVal(bitq)
 
-        keyvals= [10,10]
+    for i in range(0, 100):
+        testlisty.append(adc.getADCVAL(0))
+        time.sleep(0.08)
 
-        xvals = []
-        yvals = []
+    plt.plot(testlisty)
+    plt.show()
 
-        time.sleep(1)
-
-        x = 0
-
-        while(x <=360):
-            a = gain/20
-            b = MAX_GAIN/20
-
-            G = 10**a
-            Gmax = 10**b
-            vi = 1.5 + 1.0 * (G/Gmax) * np.cos(x * np.pi/180)
-            vq = 1.5 + 1.0 * (G/Gmax) * np.sin(x * np.pi/180)
-            #print("At phase: " + str(x))
-            #print("At amp; " + str(gain))
-
-            #print("Voltage I " + str(round(vi,4)))
-            #print("Voltage Q " + str(round(vq,4)))
-            dac1.updateVal(convertValtoVolt(vi))
-            dac2.updateVal(convertValtoVolt(vq))
-
-            time.sleep(0.08)
-
-            val = adc.getADCVAL(0)
-            if(abs(val)  < abs(keyvals[1])):
-                keyvals[0] = x
-                keyvals[1] = val
-            print("at phase: %s"%(x))
-            print('output: %s' % ((val)))
-
-            xvals.append(x)
-            yvals.append(val)
-            x+=0.5
-
-
-        print('Min Phase: %s' % (keyvals[0]))
-        print('Min Voltage: %s' %(keyvals[1]))
-
-        plt.plot(xvals,yvals)
-        plt.plot(keyvals[0], keyvals[1], marker='x', color = 'r')
-        plt.title('Voltage vs Phase')
-        plt.xlabel('Phase (degrees)')
-        plt.ylabel('Voltage (V)')
-
-        plt.show()
-        
-        testlisty = []
-        phase = keyvals[0]
-        gain = -10
-        
-        for i in range(0, 100):
-            a = gain/20
-            b = MAX_GAIN/20
-
-            G = 10**a
-            Gmax = 10**b
-            vi = 1.5 + 1.0 * (G/Gmax) * np.cos(phase * np.pi/180)
-            vq = 1.5 + 1.0 * (G/Gmax) * np.sin(phase * np.pi/180)
-            
-            
-            dac1.updateVal(convertValtoVolt(vi))
-            dac2.updateVal(convertValtoVolt(vq))
-            
-            testlisty.append(adc.getADCVAL(0))
-            
-        plt.plot(testlisty)
-        plt.show()
     dac1.stop()
     dac2.stop()
     adc.stop()
 
-"""
+        """
+
+
+
     print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
     MAX_GAIN = -10
     gain = -10
     phase = keyvals[0]
     #phase = 130
-    
+
 
     keygainvals = [[0,0,0],10]
     xvals2 = []
@@ -292,7 +282,7 @@ if __name__ == "__main__":
         Gmax = 10**b
         vi = 1.5 + 1.0 * (G/Gmax) * np.cos(phase * np.pi/180)
         vq = 1.5 + 1.0 * (G/Gmax) * np.sin(phase * np.pi/180)
-        
+
         vireal = convertValtoVolt(vi)
         vqreal = convertValtoVolt(vq)
         dac1.updateVal(vireal)
@@ -324,18 +314,17 @@ if __name__ == "__main__":
     plt.ylabel('Voltage (V)')
 
     plt.show()
-    
+
     time.sleep(1)
-    
-    
+
+
     testlisty = []
     for i in range(0, 100):
         dac1.updateVal(keygainvals[0][0])
         dac2.updateVal(keygainvals[0][1])
-        
+
         testlisty.append(adc.getADCVAL(0))
-        
+
     plt.plot(testlisty)
     plt.show()
     """
-    
