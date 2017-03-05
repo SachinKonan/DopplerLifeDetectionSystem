@@ -103,7 +103,7 @@ if __name__ == "__main__":
         time.sleep(0.1)
 
         val = adc.getADCVAL(0)
-        if(abs(val)  < keygainvals[1]):
+        if(abs(val)  < abs(keygainvals[1])):
             keygainvals[0] = gain
             keygainvals[1] = val
 
