@@ -118,9 +118,7 @@ class PageThree(tk.Frame):
 		chan3.pack(pady = 20, padx = 20)
 		chan4 = ttk.Button(frame, text = "Channel 3", command=  lambda: self.add(3))
 		chan4.pack(pady = 20, padx = 20 )
-
-
-
+		
 		f = Figure(figsize = (5,4), dpi = 100)
 		self.ax = f.add_subplot(111)
 		self.ax.grid(True)
@@ -236,19 +234,19 @@ if __name__ == "__main__":
 	plt.ylabel('Voltage (V)')
 
 	plt.show()
-	
+
 	"""
 	biti = keyvals[0][0]
 	bitq = keyvals[0][1]
-	
+
 	print('I bit: %s' % (biti))
 	print('I bit: %s' % (bitq))
-	
+
 	dac1.updateVal(biti)
 	dac2.updateVal(bitq)
-	
+
 	time.sleep(1)
-	
+
 	testlisty = []
 	for i in range(0, 100):
 		testlisty.append(adc.getADCVAL(0))
@@ -256,36 +254,36 @@ if __name__ == "__main__":
 
 	plt.plot(testlisty)
 	plt.show()
-	
+
 	"""
-	
+
 	print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
 	phase = keyvals[0][2]
-	
+
 	keygainvals = [[0,0,0],10]
 	xvals2 = []
 	yvals2 = []
-	
+
 	while gain >= -40:
 		a = gain/20
 		b = MAX_GAIN/20
 
 		G = 10**a
 		Gmax = 10**b
-		
+
 		vi = 1.5 + 1.0 * (G/Gmax) * np.cos(phase * np.pi/180)
 		vq = 1.5 + 1.0 * (G/Gmax) * np.sin(phase * np.pi/180)
 
 		biti = convertValtoVolt(vi)
 		bitq = convertValtoVolt(vq)
-		
+
 		dac1.updateVal(biti)
 		dac2.updateVal(bitq)
 
 		time.sleep(0.08)
 
 		val = adc.getADCVAL(0)
-		
+
 		if(abs(val)  < abs(keygainvals[1])):
 			keygainvals[0][0] = biti
 			keygainvals[0][1] = bitq
@@ -311,19 +309,19 @@ if __name__ == "__main__":
 	plt.ylabel('Voltage (V)')
 
 	plt.show()
-	
+
 	biti = keygainvals[0][0]
 	bitq = keygainvals[0][1]
-	
+
 	print('I bit: %s' % (biti))
 	print('Q bit: %s' % (bitq))
-	
+
 	dac1.updateVal(biti)
 	dac2.updateVal(bitq)
-	
+
 	"""
 	time.sleep(1)
-	
+
 	testlisty = []
 	for i in range(0, 100):
 		testlisty.append(adc.getADCVAL(0))
@@ -332,10 +330,10 @@ if __name__ == "__main__":
 	plt.plot(testlisty)
 	plt.show()
 	"""
-	
+
 	app = MainGui()
 	app.mainloop()
-	
+
 
 	dac1.stop()
 	dac2.stop()
