@@ -137,7 +137,7 @@ class PageThree(tk.Frame):
 		self.canvas = FigureCanvasTkAgg(f,master=self)
 		self.canvas.get_tk_widget().pack(side = tk.LEFT, fill = tk.BOTH, expand = True)
 
-		self.values = [0 for x in range(100)]
+		self.values = [0.05 for x in range(100)]
 
 		self.phaser = 0
 		self.gainer = 0.316
