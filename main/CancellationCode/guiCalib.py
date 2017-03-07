@@ -118,7 +118,7 @@ class PageThree(tk.Frame):
 		chan3.pack(pady = 20, padx = 20)
 		chan4 = ttk.Button(frame, text = "Channel 3", command=  lambda: self.add(3))
 		chan4.pack(pady = 20, padx = 20 )
-		
+
 		f = Figure(figsize = (5,4), dpi = 100)
 		self.ax = f.add_subplot(111)
 		self.ax.grid(True)
@@ -167,7 +167,7 @@ class PageThree(tk.Frame):
 	def RealtimePlotter(self):
 	  CurrentXAxis=plt.arange(len(self.values)-100,len(self.values),1)
 	  self.line1[0].set_data(CurrentXAxis,plt.array(self.values[-100:]))
-	  self.ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),0,0.2])
+	  self.ax.axis([CurrentXAxis.min(),CurrentXAxis.max(), min(self.values[-100:]), max(self.values[-100:])])
 	  self.canvas.draw()
 	  self.after(ms = 25 , func= self.RealtimePlotter)
 
@@ -216,8 +216,8 @@ if __name__ == "__main__":
 			keyvals[0][2] = x
 			keyvals[1] = val
 
-		print("at phase: %s" % (x))
-		print('output: %s' % (val))
+		#print("at phase: %s" % (x))
+		#print('output: %s' % (val))
 
 		xvals.append(x)
 		yvals.append(val)
@@ -234,28 +234,6 @@ if __name__ == "__main__":
 	plt.ylabel('Voltage (V)')
 
 	plt.show()
-
-	"""
-	biti = keyvals[0][0]
-	bitq = keyvals[0][1]
-
-	print('I bit: %s' % (biti))
-	print('I bit: %s' % (bitq))
-
-	dac1.updateVal(biti)
-	dac2.updateVal(bitq)
-
-	time.sleep(1)
-
-	testlisty = []
-	for i in range(0, 100):
-		testlisty.append(adc.getADCVAL(0))
-		time.sleep(0.08)
-
-	plt.plot(testlisty)
-	plt.show()
-
-	"""
 
 	print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
 	phase = keyvals[0][2]
@@ -290,8 +268,8 @@ if __name__ == "__main__":
 			keygainvals[0][2] = gain
 			keygainvals[1] = val
 
-		print("At gain: %s" % (gain))
-		print('output: %s' % (val))
+		#print("At gain: %s" % (gain))
+		#print('output: %s' % (val))
 
 		xvals2.append(gain)
 		yvals2.append(val)
@@ -319,17 +297,6 @@ if __name__ == "__main__":
 	dac1.updateVal(biti)
 	dac2.updateVal(bitq)
 
-	"""
-	time.sleep(1)
-
-	testlisty = []
-	for i in range(0, 100):
-		testlisty.append(adc.getADCVAL(0))
-		time.sleep(0.08)
-
-	plt.plot(testlisty)
-	plt.show()
-	"""
 
 	app = MainGui()
 	app.mainloop()

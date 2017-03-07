@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6e232f4f-8f82-4292-9703-15c02e2751cb" name="Default" comment="" />
+    <list default="true" id="6e232f4f-8f82-4292-9703-15c02e2751cb" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/main/CancellationCode/voltage.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/main/CancellationCode/voltvsamp130.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/main/CancellationCode/voltvsamp30dB.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/main/CancellationCode/voltvsamp3dB.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/main/CancellationCode/voltvsampnotten.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/main/CancellationCode/voltvsphase130.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/main/CancellationCode/voltvsphase30dB.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/main/CancellationCode/voltvsphase3dB.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/main/CancellationCode/voltvsphasenoatten.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SpiceCircuits/10HzLowPass.op.raw" afterPath="$PROJECT_DIR$/SpiceCircuits/10HzLowPass.op.raw" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SpiceCircuits/10HzLowPass.raw" afterPath="$PROJECT_DIR$/SpiceCircuits/10HzLowPass.raw" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SpiceCircuits/40dB Amplifier.op.raw" afterPath="$PROJECT_DIR$/SpiceCircuits/40dB Amplifier.op.raw" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SpiceCircuits/40dB Amplifier.raw" afterPath="$PROJECT_DIR$/SpiceCircuits/40dB Amplifier.raw" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SpiceCircuits/10HzLowPass.log" afterPath="$PROJECT_DIR$/SpiceCircuits/10HzLowPass.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SpiceCircuits/40dB Amplifier.log" afterPath="$PROJECT_DIR$/SpiceCircuits/40dB Amplifier.log" />
+    </list>
     <ignored path="ScienceFair2017.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,29 +38,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file leaf-file-name="MCP4725.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DAC/iheritance/MCP4725.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="oscilloscope.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DAC/iheritance/oscilloscope.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1764">
-              <caret line="130" column="54" selection-start-line="130" selection-start-column="54" selection-end-line="130" selection-end-column="54" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rangetester.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="rangetester.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/CancellationCode/rangetester.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1056">
@@ -55,45 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="isquare.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DAC/iheritance/isquare.py">
+      <file leaf-file-name="guiCalibdevelop.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main/CancellationCode/guiCalibdevelop.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="squarewave.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DAC/squarewave.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2046">
-              <caret line="65" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sinwave.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DAC/sinwave.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="924">
-              <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="41" selection-end-column="29" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="setvalue.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DAC/setvalue.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="29" />
+            <state relative-caret-position="1815">
+              <caret line="162" column="57" selection-start-line="162" selection-start-column="57" selection-end-line="162" selection-end-column="57" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -126,6 +87,7 @@
         <option value="$PROJECT_DIR$/DAC/iheritance/MCP4725.py" />
         <option value="$PROJECT_DIR$/DAC/iheritance/oscilloscope.py" />
         <option value="$PROJECT_DIR$/main/CancellationCode/rangetester.py" />
+        <option value="$PROJECT_DIR$/main/CancellationCode/guiCalibdevelop.py" />
       </list>
     </option>
   </component>
@@ -161,7 +123,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -177,6 +138,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="ScienceFair2017" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ScienceFair2017" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ScienceFair2017" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -218,6 +193,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -230,7 +206,7 @@
       <recent name="C:\Users\Sachin Konan\Documents\ScienceFair2017\DAC\NewFiles" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.rangetester">
+  <component name="RunManager" selected="Python.guiCalibdevelop">
     <configuration default="false" name="oscilloscope" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -261,6 +237,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="ScienceFair2017" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main/CancellationCode/rangetester.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="guiCalibdevelop" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/main/CancellationCode" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ScienceFair2017" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main/CancellationCode/guiCalibdevelop.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -399,14 +392,16 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="2">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Python.oscilloscope" />
       <item index="1" class="java.lang.String" itemvalue="Python.rangetester" />
+      <item index="2" class="java.lang.String" itemvalue="Python.guiCalibdevelop" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Python.rangetester" />
-        <item index="1" class="java.lang.String" itemvalue="Python.oscilloscope" />
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="Python.guiCalibdevelop" />
+        <item index="1" class="java.lang.String" itemvalue="Python.rangetester" />
+        <item index="2" class="java.lang.String" itemvalue="Python.oscilloscope" />
       </list>
     </recent_temporary>
   </component>
@@ -469,9 +464,65 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="429">
           <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DAC/iheritance/oscilloscope.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4026">
+          <caret line="130" column="54" selection-start-line="130" selection-start-column="54" selection-end-line="130" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/CancellationCode/rangetester.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#0#31#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DAC/iheritance/isquare.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DAC/squarewave.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2046">
+          <caret line="65" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DAC/sinwave.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="924">
+          <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="41" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DAC/setvalue.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DAC/iheritance/MCP4725.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -495,9 +546,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2046">
           <caret line="65" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -505,9 +554,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="924">
           <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="41" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -515,9 +562,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -525,9 +570,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
           <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -551,9 +594,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2046">
           <caret line="65" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -561,9 +602,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="924">
           <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="41" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -571,9 +610,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -581,9 +618,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -606,9 +641,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2046">
           <caret line="65" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -616,9 +649,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="924">
           <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="41" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -626,9 +657,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -650,9 +679,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -660,9 +687,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="924">
           <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="41" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -670,9 +695,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2046">
           <caret line="65" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -688,9 +711,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="429">
           <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -703,7 +724,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DAC/iheritance/oscilloscope.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1764">
+        <state relative-caret-position="4026">
           <caret line="130" column="54" selection-start-line="130" selection-start-column="54" selection-end-line="130" selection-end-column="54" />
           <folding />
         </state>
@@ -715,6 +736,16 @@
           <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/CancellationCode/guiCalibdevelop.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1815">
+          <caret line="162" column="57" selection-start-line="162" selection-start-column="57" selection-end-line="162" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
