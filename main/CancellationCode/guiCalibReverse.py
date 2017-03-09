@@ -23,7 +23,7 @@ matplotlib.use("TkAgg")
 large_font = ("Verdana", 12)
 small_font = ("Verdana", 8)
 
-adc = ADCThread(address=0x48).start()
+adc = ADCThread(address=0x48,diff=True).start()
 dac1 = dacThreadVAL(0x63).start()
 dac2 = dacThreadVAL(0x62).start()
 
@@ -181,15 +181,68 @@ if __name__ == "__main__":
 
 	gain = -10
 	MAX_GAIN = -10
-
-	keyvals= [ [0,0,0] , 100000]
-
-	xvals = []
-	yvals = []
+	
+	keygainvals = [[0,0,0],1000000]
+	xvals2 = []
+	yvals2 = []
+	
+	
 
 	time.sleep(1)
 
 	x = 0
+	
+	while gain >= -50:
+		a = gain/20
+		b = MAX_GAIN/20
+
+		G = 10**a
+		Gmax = 10**b
+
+		vi = 1.5 + 1.0 * (G/Gmax) * np.cos(x * np.pi/180)
+		vq = 1.5 + 1.0 * (G/Gmax) * np.sin(x * np.pi/180)
+
+		biti = convertValtoVolt(vi)
+		bitq = convertValtoVolt(vq)
+
+		dac1.updateVal(biti)
+		dac2.updateVal(bitq)
+
+		time.sleep(0.1)
+
+		val = adc.getADCVAL(0)
+
+		if(abs(val)  < abs(keygainvals[1])):
+			keygainvals[0][0] = biti
+			keygainvals[0][1] = bitq
+			keygainvals[0][2] = gain
+			keygainvals[1] = val
+
+		#print("At gain: %s" % (gain))
+		#print('output: %s' % (val))
+
+		xvals2.append(gain)
+		yvals2.append(val)
+
+		gain -=0.2
+
+
+	print('Min GAIN: %s' % (keygainvals[0][2]))
+	print('Min Voltage: %s' %(keygainvals[1]))
+
+	plt.plot(xvals2,yvals2)
+	plt.plot(keygainvals[0][2], keygainvals[1], marker='x', color = 'r')
+	plt.title('Voltage vs Amplitude')
+	plt.xlabel('Amplitude (dB)')
+	plt.ylabel('Voltage (V)')
+
+	plt.show()
+	
+	gain = keygainvals[0][2]
+	keyvals= [ [0,0,0] , 100000]
+
+	xvals = []
+	yvals = []
 
 	while(x <=360):
 		a = gain/20
@@ -236,63 +289,10 @@ if __name__ == "__main__":
 	plt.show()
 
 	print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-	phase = keyvals[0][2]
-
-	keygainvals = [[0,0,0],1000000]
-	xvals2 = []
-	yvals2 = []
-
-	while gain >= -50:
-		a = gain/20
-		b = MAX_GAIN/20
-
-		G = 10**a
-		Gmax = 10**b
-
-		vi = 1.5 + 1.0 * (G/Gmax) * np.cos(phase * np.pi/180)
-		vq = 1.5 + 1.0 * (G/Gmax) * np.sin(phase * np.pi/180)
-
-		biti = convertValtoVolt(vi)
-		bitq = convertValtoVolt(vq)
-
-		dac1.updateVal(biti)
-		dac2.updateVal(bitq)
-
-		time.sleep(0.1)
-
-		val = adc.getADCVAL(0)
-
-		if(abs(val)  < abs(keygainvals[1])):
-			keygainvals[0][0] = biti
-			keygainvals[0][1] = bitq
-			keygainvals[0][2] = gain
-			keygainvals[1] = val
-
-		#print("At gain: %s" % (gain))
-		#print('output: %s' % (val))
-
-		xvals2.append(gain)
-		yvals2.append(val)
-
-		gain -=0.2
-
-
-	print('Min GAIN: %s' % (keygainvals[0][2]))
-	print('Min Voltage: %s' %(keygainvals[1]))
-
-	plt.plot(xvals2,yvals2)
-	plt.plot(keygainvals[0][2], keygainvals[1], marker='x', color = 'r')
-	plt.title('Voltage vs Amplitude')
-	plt.xlabel('Amplitude (dB)')
-	plt.ylabel('Voltage (V)')
-
-	plt.show()
-
-	biti = keygainvals[0][0]
-	bitq = keygainvals[0][1]
-
-	print('I bit: %s' % (biti))
-	print('Q bit: %s' % (bitq))
+	
+	biti = keyvals[0][0] 
+	bitq  = keyvals[0][1]
+	
 
 	dac1.updateVal(biti)
 	dac2.updateVal(bitq)

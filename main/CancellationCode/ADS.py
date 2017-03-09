@@ -40,8 +40,8 @@ class ADCThread:
 				return
 
 			else:
-				if(!self.diff):
-					self.adcval1 = (self.adc.read_adc(0, gain=self.GAIN) )
+				if(not self.diff):
+					self.adcval1 = (self.adc.read_adc(0, gain=self.GAIN)/32767.0)* 6.144
 					self.adcval2 = (self.adc.read_adc(1, gain=self.GAIN)/32767.0)* 6.144
 					self.adcval3 = (self.adc.read_adc(2, gain=self.GAIN)/32767.0)* 6.144
 					self.adcval4 = (self.adc.read_adc(3, gain=self.GAIN)/32767.0)* 6.144
