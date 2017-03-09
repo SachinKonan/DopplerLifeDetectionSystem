@@ -7,11 +7,11 @@ dictionary = {
 1: 4.0
 }
 class ADCThread:
-	def __init__(self,address = 0x48,gain=2/3,numthreads =1):
+	def __init__(self,address = 0x48,gain=2/3,diff = False):
 		self.i2caddress = address
 		self.adc = Adafruit_ADS1x15.ADS1115(self.i2caddress)
 		self.GAIN = gain
-		self.numthreads = numthreads
+		self.diff = False
 		self.interrupt = False
 		self.stopA1 = False
 		self.stopA2 = False
@@ -40,12 +40,19 @@ class ADCThread:
 				return
 
 			else:
-				self.adcval1 = (self.adc.read_adc(0, gain=self.GAIN)/32767.0)* 6.144
-				self.adcval2 = (self.adc.read_adc(1, gain=self.GAIN)/32767.0)* 6.144
-				self.adcval3 = (self.adc.read_adc(2, gain=self.GAIN)/32767.0)* 6.144
-				self.adcval4 = (self.adc.read_adc(3, gain=self.GAIN)/32767.0)* 6.144
-				#self.end_time = time.time()
-				#self.samples+=1
+				if(!self.diff):
+					self.adcval1 = (self.adc.read_adc(0, gain=self.GAIN) )
+					self.adcval2 = (self.adc.read_adc(1, gain=self.GAIN)/32767.0)* 6.144
+					self.adcval3 = (self.adc.read_adc(2, gain=self.GAIN)/32767.0)* 6.144
+					self.adcval4 = (self.adc.read_adc(3, gain=self.GAIN)/32767.0)* 6.144
+					#self.end_time = time.time()
+					#self.samples+=1
+				else:
+					#  - 0 = Channel 0 minus channel 1
+				    #  - 1 = Channel 0 minus channel 3
+				    #  - 2 = Channel 1 minus channel 3
+				    #  - 3 = Channel 2 minus channel 3
+					self.adcval1 = (self.adc.read_adc_difference(0, gain=GAIN))
 				time.sleep(0.0005)
 
 	def getADCVAL(self, var):
@@ -55,27 +62,6 @@ class ADCThread:
 		elif(var == 3): return self.adcval4
 		else: pass
 
-	"""
-	def getADCVal1(self):
-		return self.adcval1
-
-	def getADCVal2(self):
-		return self.adcval2
-
-	def getADCVal3(self):
-		return self.adcval3
-
-	def getADCVal4(self):
-		return self.adcval4
-	"""
-	"""
-	def calcSamplingRate(self):
-		tottime = self.end_time - self.start_time
-		return self.samples/tottime
-
-	def printnumSamples(self):
-		return self.samples
-	"""
 
 	def stop(self):
 		self.interrupt = True

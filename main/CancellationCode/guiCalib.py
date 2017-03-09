@@ -182,7 +182,7 @@ if __name__ == "__main__":
 	gain = -10
 	MAX_GAIN = -10
 
-	keyvals= [ [0,0,0] , 10]
+	keyvals= [ [0,0,0] , 100000]
 
 	xvals = []
 	yvals = []
@@ -238,7 +238,7 @@ if __name__ == "__main__":
 	print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
 	phase = keyvals[0][2]
 
-	keygainvals = [[0,0,0],10]
+	keygainvals = [[0,0,0],1000000]
 	xvals2 = []
 	yvals2 = []
 
