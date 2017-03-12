@@ -180,7 +180,7 @@ if __name__ == "__main__":
 	dut = True
 
 	gain = -10
-	MAX_GAIN = -10
+	MAX_GAIN = -20
 
 	keyvals= [ [0,0,0] , 100000]
 
@@ -258,7 +258,7 @@ if __name__ == "__main__":
 		dac1.updateVal(biti)
 		dac2.updateVal(bitq)
 
-		time.sleep(0.1)
+		time.sleep(0.08)
 
 		val = adc.getADCVAL(0)
 
