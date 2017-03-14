@@ -16,9 +16,9 @@ import sys
 from threading import Thread
 
 
-style.use("ggplot")
+#style.use("ggplot")
 
-matplotlib.use("TkAgg")
+#matplotlib.use("TkAgg")
 
 large_font = ("Verdana", 12)
 small_font = ("Verdana", 8)
@@ -172,17 +172,11 @@ class PageThree(tk.Frame):
 	  self.after(ms = 25 , func= self.RealtimePlotter)
 
 if __name__ == "__main__":
-	global cancelphase
-	global cancelgain
-
-	time.sleep(1)
 	print('Press Ctrl-C to quit...')
-	dut = True
-
 	gain = -10
-	MAX_GAIN = -20
+	MAX_GAIN = -10
 
-	keyvals= [ [0,0,0] , 100000]
+	keyvals= [10,10]
 
 	xvals = []
 	yvals = []
@@ -197,38 +191,33 @@ if __name__ == "__main__":
 
 		G = 10**a
 		Gmax = 10**b
+		
 		vi = 1.5 + 1.0 * (G/Gmax) * np.cos(x * np.pi/180)
 		vq = 1.5 + 1.0 * (G/Gmax) * np.sin(x * np.pi/180)
-
-		biti = convertValtoVolt(vi)
-		bitq = convertValtoVolt(vq)
-
-		dac1.updateVal(biti)
-		dac2.updateVal(bitq)
+		
+		dac1.updateVal(convertValtoVolt(vi))
+		dac2.updateVal(convertValtoVolt(vq))
 
 		time.sleep(0.08)
 
 		val = adc.getADCVAL(0)
-
 		if(abs(val)  < abs(keyvals[1])):
-			keyvals[0][0] = biti
-			keyvals[0][1] = bitq
-			keyvals[0][2] = x
+			keyvals[0] = x
 			keyvals[1] = val
-
-		#print("at phase: %s" % (x))
-		#print('output: %s' % (val))
+			
+		print("at phase: %s"%(x))
+		print('output: %s' % (abs(val)))
 
 		xvals.append(x)
 		yvals.append(val)
-
 		x+=0.5
 
-	print('Min Phase: %s' % (keyvals[0][2]))
+
+	print('Min Phase: %s' % (keyvals[0]))
 	print('Min Voltage: %s' %(keyvals[1]))
 
 	plt.plot(xvals,yvals)
-	plt.plot(keyvals[0][2], keyvals[1], marker='x', color = 'r')
+	plt.plot(keyvals[0], keyvals[1], marker='x', color = 'r')
 	plt.title('Voltage vs Phase')
 	plt.xlabel('Phase (degrees)')
 	plt.ylabel('Voltage (V)')
@@ -236,40 +225,39 @@ if __name__ == "__main__":
 	plt.show()
 
 	print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-	phase = keyvals[0][2]
+	
+	phase = keyvals[0]
+	keygainvals = [[0, 0, 0], 10]
 
-	keygainvals = [[0,0,0],1000000]
 	xvals2 = []
 	yvals2 = []
 
-	while gain >= -50:
+	while gain >= -40:
 		a = gain/20
 		b = MAX_GAIN/20
 
 		G = 10**a
 		Gmax = 10**b
-
 		vi = 1.5 + 1.0 * (G/Gmax) * np.cos(phase * np.pi/180)
 		vq = 1.5 + 1.0 * (G/Gmax) * np.sin(phase * np.pi/180)
-
+		
 		biti = convertValtoVolt(vi)
 		bitq = convertValtoVolt(vq)
-
+		
 		dac1.updateVal(biti)
 		dac2.updateVal(bitq)
 
-		time.sleep(0.08)
+		time.sleep(0.1)
 
 		val = adc.getADCVAL(0)
-
-		if(abs(val)  < abs(keygainvals[1])):
+		if (abs(val) < abs(keygainvals[1])):
 			keygainvals[0][0] = biti
 			keygainvals[0][1] = bitq
 			keygainvals[0][2] = gain
 			keygainvals[1] = val
 
-		#print("At gain: %s" % (gain))
-		#print('output: %s' % (val))
+		print("At gain: %s" % (gain))
+		print('output: %s' % (val))
 
 		xvals2.append(gain)
 		yvals2.append(val)
@@ -278,10 +266,10 @@ if __name__ == "__main__":
 
 
 	print('Min GAIN: %s' % (keygainvals[0][2]))
-	print('Min Voltage: %s' %(keygainvals[1]))
+	print('Min Voltage: %s' % (keygainvals[1]))
 
-	plt.plot(xvals2,yvals2)
-	plt.plot(keygainvals[0][2], keygainvals[1], marker='x', color = 'r')
+	plt.plot(xvals2, yvals2)
+	plt.plot(keygainvals[0][2], keygainvals[1], marker='x', color='r')
 	plt.title('Voltage vs Amplitude')
 	plt.xlabel('Amplitude (dB)')
 	plt.ylabel('Voltage (V)')
@@ -293,11 +281,10 @@ if __name__ == "__main__":
 
 	print('I bit: %s' % (biti))
 	print('Q bit: %s' % (bitq))
-
+	
 	dac1.updateVal(biti)
 	dac2.updateVal(bitq)
-
-
+	
 	app = MainGui()
 	app.mainloop()
 

@@ -23,14 +23,14 @@ if __name__ == "__main__":
 	print('Press Ctrl-C to quit...')
 	dut = True
 	
-	"""
+	
 	gain = 0.316
 	#dac1.updateVal(convertValtoVolt(2.5))
 	#dac2.updateVal(convertValtoVolt(2.5))
 
 	for x in range(0, 361, 10):
 		a = gain/20
-		b = 0.316/20
+		b = -10/20
 
 		G = 10**a
 		Gmax = 10**b
@@ -84,7 +84,7 @@ if __name__ == "__main__":
 
 	plt.show()
 	
-	"""
+	
 	phase = 45
 	gain = 0.316
 	MAX_GAIN = 0.316
@@ -108,8 +108,9 @@ if __name__ == "__main__":
 		time.sleep(0.1)
 
 		gain -= 0.5
+		
 	"""
-
+	
 	dac1.stop()
 	dac2.stop()
 	adc.stop()
