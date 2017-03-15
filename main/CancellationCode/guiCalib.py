@@ -15,6 +15,7 @@ import time
 import sys
 from threading import Thread
 import os
+import tkinter.simpledialog as simpledialog
 
 #style.use("ggplot")
 
@@ -63,7 +64,7 @@ class StartPage(tk.Frame):
 
 		button1 = ttk.Button(self, text = "Visit Page 1", command=lambda:controller.show_frame(PageOne))
 		button1.pack()
-		button2 = ttk.Button(self, text = "Visit Page 2", command=lambda:controller.show_frame(PageTwo))
+		button2 = ttk.Button(self, text = "Visit Data Storge", command=lambda:controller.show_frame(PageTwo))
 		button2.pack()
 		button3 = ttk.Button(self, text = "Visit Oscilloscope", command=lambda:controller.show_frame(PageThree))
 		button3.pack()
@@ -81,41 +82,43 @@ class PageOne(tk.Frame):
 
 class PageTwo(tk.Frame):
 	def __init__(self, parent, controller):
-        tk.Frame.__init__(self,parent)
-        label = tk.Label(self,text = "Data Acquisition", font = large_font)
-        label.pack(pady = 10, padx = 10)
+		tk.Frame.__init__(self,parent)
+		label = tk.Label(self,text = "Data Acquisition", font = large_font)
+		label.pack(pady = 10, padx = 10)
 
-        button1 = ttk.Button(self, text = "Back to Home", command=lambda:controller.show_frame(StartPage))
-        button1.pack()
+		button1 = ttk.Button(self, text = "Back to Home", command=lambda:controller.show_frame(StartPage))
+		button1.pack()
 
-        self.statuslabel = tk.Label(self,text = "Status", font = large_font)
-        self.statuslabel.pack(pady = 30, padx = 30)
+		self.statuslabel = tk.Label(self,text = "Status", font = large_font)
+		self.statuslabel.pack(pady = 30, padx = 30)
 
-        button3 = ttk.Button(self, text = "Data Acqusition Button for 2500 Samp", command = self.showBox)
-        button3.pack()
+		button3 = ttk.Button(self, text = "Data Acqusition Button for 2500 Samp", command = self.showBox)
+		button3.pack()
 
-    def showBox(self):
-        string = simpledialog.askstring("Hello", "Prompt")
+	def showBox(self):
+		string = tk.simpledialog.askstring("Hello", "Prompt")
 
-        if(string != None):
-            self.statuslabel['text'] = "Starting Data Acquisistion"
-            data = self.arraySampler()
+		if(string != None):
+			self.statuslabel['text'] = "Starting Data Acquisistion"
+			data = self.arraySampler()
 
-            self.statuslabel['text'] = "Saving to: " + string
-            path = 'C:\\Users\\Sachin Konan\\Documents\\ScienceFair2017\\main\\gui\\datasets'
-            np.save(os.path.join(path, string), data)
-            self.statuslabel['text'] = "Finished Saving"
-        else:
-            pass
+			self.statuslabel['text'] = "Saving to: " + string
+			path = '/home/pi/Documents/ScienceFair2017/main/CancellationCode/radarData'
+			np.save(os.path.join(path, string), data)
+			self.statuslabel['text'] = "Finished Saving"
+		else:
+			pass
 
-    def arraySampler(self):
-        data = []
-        for i in range(0, 2500):
-            data.append(adc.getADCVAL(0))
-			time.sleep(0.001)
-            #data.append(np.random.rand()*2 -1)
+	def arraySampler(self):
+		data = []
+		for i in range(0, 2500):
+			val = adc.getADCVAL(1)
+			print('Sample %s: %s ' %(i, val))
+			data.append(val)
+			time.sleep(0.085)
+			#data.append(np.random.rand()*2 -1)
 
-        return data
+		return data
 
 class PageThree(tk.Frame):
 
