@@ -14,7 +14,7 @@ import numpy as np
 import time
 import sys
 from threading import Thread
-
+import os
 
 #style.use("ggplot")
 
@@ -81,15 +81,41 @@ class PageOne(tk.Frame):
 
 class PageTwo(tk.Frame):
 	def __init__(self, parent, controller):
-		tk.Frame.__init__(self,parent)
-		label = tk.Label(self,text = "Page Two", font = large_font)
-		label.pack(pady = 10, padx = 10)
+        tk.Frame.__init__(self,parent)
+        label = tk.Label(self,text = "Data Acquisition", font = large_font)
+        label.pack(pady = 10, padx = 10)
 
-		button1 = ttk.Button(self, text = "Back to Home", command=lambda:controller.show_frame(StartPage))
-		button1.pack()
+        button1 = ttk.Button(self, text = "Back to Home", command=lambda:controller.show_frame(StartPage))
+        button1.pack()
 
-		button2 = ttk.Button(self, text = "Page one", command=lambda:controller.show_frame(PageOne))
-		button2.pack()
+        self.statuslabel = tk.Label(self,text = "Status", font = large_font)
+        self.statuslabel.pack(pady = 30, padx = 30)
+
+        button3 = ttk.Button(self, text = "Data Acqusition Button for 2500 Samp", command = self.showBox)
+        button3.pack()
+
+    def showBox(self):
+        string = simpledialog.askstring("Hello", "Prompt")
+
+        if(string != None):
+            self.statuslabel['text'] = "Starting Data Acquisistion"
+            data = self.arraySampler()
+
+            self.statuslabel['text'] = "Saving to: " + string
+            path = 'C:\\Users\\Sachin Konan\\Documents\\ScienceFair2017\\main\\gui\\datasets'
+            np.save(os.path.join(path, string), data)
+            self.statuslabel['text'] = "Finished Saving"
+        else:
+            pass
+
+    def arraySampler(self):
+        data = []
+        for i in range(0, 2500):
+            data.append(adc.getADCVAL(0))
+			time.sleep(0.001)
+            #data.append(np.random.rand()*2 -1)
+
+        return data
 
 class PageThree(tk.Frame):
 
@@ -191,10 +217,10 @@ if __name__ == "__main__":
 
 		G = 10**a
 		Gmax = 10**b
-		
+
 		vi = 1.5 + 1.0 * (G/Gmax) * np.cos(x * np.pi/180)
 		vq = 1.5 + 1.0 * (G/Gmax) * np.sin(x * np.pi/180)
-		
+
 		dac1.updateVal(convertValtoVolt(vi))
 		dac2.updateVal(convertValtoVolt(vq))
 
@@ -204,7 +230,7 @@ if __name__ == "__main__":
 		if(abs(val)  < abs(keyvals[1])):
 			keyvals[0] = x
 			keyvals[1] = val
-			
+
 		print("at phase: %s"%(x))
 		print('output: %s' % (abs(val)))
 
@@ -225,7 +251,7 @@ if __name__ == "__main__":
 	plt.show()
 
 	print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-	
+
 	phase = keyvals[0]
 	keygainvals = [[0, 0, 0], 10]
 
@@ -240,10 +266,10 @@ if __name__ == "__main__":
 		Gmax = 10**b
 		vi = 1.5 + 1.0 * (G/Gmax) * np.cos(phase * np.pi/180)
 		vq = 1.5 + 1.0 * (G/Gmax) * np.sin(phase * np.pi/180)
-		
+
 		biti = convertValtoVolt(vi)
 		bitq = convertValtoVolt(vq)
-		
+
 		dac1.updateVal(biti)
 		dac2.updateVal(bitq)
 
@@ -281,10 +307,10 @@ if __name__ == "__main__":
 
 	print('I bit: %s' % (biti))
 	print('Q bit: %s' % (bitq))
-	
+
 	dac1.updateVal(biti)
 	dac2.updateVal(bitq)
-	
+
 	app = MainGui()
 	app.mainloop()
 

@@ -10,6 +10,8 @@ import numpy as np
 import time
 import sys
 from threading import Thread
+import tkinter.simpledialog as simpledialog
+import os
 
 style.use("ggplot")
 
@@ -55,7 +57,7 @@ class StartPage(tk.Frame):
 
         button1 = ttk.Button(self, text = "Visit Page 1", command=lambda:controller.show_frame(PageOne))
         button1.pack()
-        button2 = ttk.Button(self, text = "Visit Page 2", command=lambda:controller.show_frame(PageTwo))
+        button2 = ttk.Button(self, text = "Visit Data Acquisition", command=lambda:controller.show_frame(PageTwo))
         button2.pack()
         button3 = ttk.Button(self, text = "Visit Oscilloscope", command=lambda:controller.show_frame(PageThree))
         button3.pack()
@@ -74,15 +76,39 @@ class PageOne(tk.Frame):
 class PageTwo(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self,parent)
-        label = tk.Label(self,text = "Page Two", font = large_font)
+        label = tk.Label(self,text = "Data Acquisition", font = large_font)
         label.pack(pady = 10, padx = 10)
 
         button1 = ttk.Button(self, text = "Back to Home", command=lambda:controller.show_frame(StartPage))
         button1.pack()
 
-        button2 = ttk.Button(self, text = "Page one", command=lambda:controller.show_frame(PageOne))
-        button2.pack()
+        self.statuslabel = tk.Label(self,text = "Status", font = large_font)
+        self.statuslabel.pack(pady = 30, padx = 30)
 
+        button3 = ttk.Button(self, text = "Data Acqusition Button for 2500 Samp", command = self.showBox)
+        button3.pack()
+
+    def showBox(self):
+        string = simpledialog.askstring("Hello", "Prompt")
+
+        if(string != None):
+            self.statuslabel['text'] = "Starting Data Acquisistion"
+            data = self.arraySampler()
+
+            self.statuslabel['text'] = "Saving to: " + string
+            path = 'C:\\Users\\Sachin Konan\\Documents\\ScienceFair2017\\main\\gui\\datasets'
+            np.save(os.path.join(path, string), data)
+            self.statuslabel['text'] = "Finished Saving"
+        else:
+            pass
+
+    def arraySampler(self):
+        data = []
+        for i in range(0, 2500):
+            #data.append(adc.getADCVAL(0))
+            data.append(np.random.rand()*2 -1)
+
+        return data
 class PageThree(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -165,7 +191,7 @@ class PageThree(tk.Frame):
 
         try:
             val = float(valstring)
-            print(val)
+
             #phasedac.updateVal(val)
         except ValueError:
             print("cant convert")
@@ -177,7 +203,6 @@ class PageThree(tk.Frame):
 
         try:
             val = float(valstring)
-            print(val)
             #ampdac.updateVal(val)
         except ValueError:
             print("can't convert")
