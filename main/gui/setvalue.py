@@ -23,7 +23,6 @@ class dacThreadVAL:
         while True:
             if(self.interrupt):
                 return
-
             else:
                 if(self.val >= 0 and self.val <= 4096):
                     self.dac.set_voltage(self.val,True)
