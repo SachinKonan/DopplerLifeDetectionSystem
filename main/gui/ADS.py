@@ -31,10 +31,8 @@ class ADCThread:
 		i = 0
 		i1 = 1
 		while True:
-
 			if(self.interrupt):
 				return
-
 			else:
 				self.adcval1 = (self.adc.read_adc(0, gain=self.GAIN)/32767.0)* 6.144
 				self.adcval2 = (self.adc.read_adc(1, gain=self.GAIN)/32767.0)* 6.144
@@ -50,28 +48,6 @@ class ADCThread:
 		elif(var == 2): return self.adcval3
 		elif(var == 3): return self.adcval4
 		else: pass
-
-	"""
-	def getADCVal1(self):
-		return self.adcval1
-
-	def getADCVal2(self):
-		return self.adcval2
-
-	def getADCVal3(self):
-		return self.adcval3
-
-	def getADCVal4(self):
-		return self.adcval4
-	"""
-	"""
-	def calcSamplingRate(self):
-		tottime = self.end_time - self.start_time
-		return self.samples/tottime
-
-	def printnumSamples(self):
-		return self.samples
-	"""
 
 	def stop(self):
 		self.interrupt = True
