@@ -1,6 +1,6 @@
 import time
-import Adafruit_ADS1x15
 from threading import Thread
+import Adafruit_ADS1x15
 
 class ADCThread:
 	def __init__(self,address = 0x48,gain=2/3,numthreads =1):
