@@ -21,7 +21,6 @@ import Adafruit_MCP4725
 def convertValtoVolt(x):
     return int((x / 3.3) * 4096.0)
 
-
 class ADCThread:
     def __init__(self, address=0x48, gain=2 / 3, numthreads=1):
         self.i2caddress = address
@@ -74,7 +73,6 @@ class ADCThread:
             return self.adcval4
         else:
             pass
-
     def stop(self):
         self.interrupt = True
 
@@ -107,26 +105,20 @@ class dacThreadVAL:
 
 
 style.use("ggplot")
-
 matplotlib.use("TkAgg")
-
 large_font = ("Verdana", 12)
 small_font = ("Verdana", 8)
 
 phasedac = dacThreadVAL(0x63).start()
 ampdac = dacThreadVAL(0x62).start()
 adc = ADCThread().start()
-
 isOn = True
-
-
 class MainGui(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
         container = tk.Frame(self)
 
         container.pack(side="top", fill="both", expand=True)
-
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
         self.frames = {}
@@ -135,7 +127,6 @@ class MainGui(tk.Tk):
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
-
         self.show_frame(StartPage)
 
     def show_frame(self, cont):
@@ -148,7 +139,6 @@ class StartPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text="Start Page", font=large_font)
         label.pack(pady=10, padx=10)
-
         button1 = ttk.Button(self, text="Calibration", command=lambda: controller.show_frame(PageOne))
         button1.pack()
         button2 = ttk.Button(self, text="Visit Data Acquisition", command=lambda: controller.show_frame(PageTwo))
@@ -199,13 +189,10 @@ class PageOne(tk.Frame):
         while (x <= 360):
             a = gain / 20
             b = MAX_GAIN / 20
-
             G = 10 ** a
             Gmax = 10 ** b
-
             vi = 1.5 + 1.0 * (G / Gmax) * np.cos(x * np.pi / 180)
             vq = 1.5 + 1.0 * (G / Gmax) * np.sin(x * np.pi / 180)
-
             phasedac.updateVal(convertValtoVolt(vi))
             ampdac.updateVal(convertValtoVolt(vq))
             time.sleep(0.08)
@@ -214,10 +201,6 @@ class PageOne(tk.Frame):
             if (abs(val) < abs(keyvals[1])):
                 keyvals[0] = x
                 keyvals[1] = val
-
-            # print("at phase: %s"%(x))
-            # print('output: %s' % (abs(val)))
-
             xvals.append(x)
             yvals.append(val)
             x += 0.5
@@ -235,19 +218,16 @@ class PageOne(tk.Frame):
         while gain >= -40:
             a = gain / 20
             b = MAX_GAIN / 20
-
             G = 10 ** a
             Gmax = 10 ** b
             vi = 1.5 + 1.0 * (G / Gmax) * np.cos(phase * np.pi / 180)
             vq = 1.5 + 1.0 * (G / Gmax) * np.sin(phase * np.pi / 180)
-
             biti = convertValtoVolt(vi)
             bitq = convertValtoVolt(vq)
             phasedac.updateVal(biti)
             ampdac.updateVal(bitq)
             time.sleep(0.1)
             val = adc.getADCVAL(0)
-            # val = np.random.rand() * 2 - 1
             if (abs(val) < abs(keygainvals[1])):
                 keygainvals[0][0] = biti
                 keygainvals[0][1] = bitq
@@ -266,9 +246,7 @@ class PageOne(tk.Frame):
 
         phasedac.updateVal(biti)
         ampdac.updateVal(bitq)
-
         self.canvas.show()
-
 
 class PageTwo(tk.Frame):
     def __init__(self, parent, controller):
@@ -350,9 +328,7 @@ class PageThree(tk.Frame):
         self.label5.pack(side=tk.BOTTOM)
 
         self.phase = tk.Scale(self, label="DAC1 :", from_=0, to=4096, sliderlength=20, length=400, orient=tk.HORIZONTAL)
-        self.amplitude = tk.Scale(self, label="DAC2 :", from_=0, to=4096, sliderlength=20, length=400,
-                                  orient=tk.HORIZONTAL)
-
+        self.amplitude = tk.Scale(self, label="DAC2 :", from_=0, to=4096, sliderlength=20, length=400,orient=tk.HORIZONTAL)
         self.phase.pack(side=tk.TOP, padx=2, pady=5)
         self.amplitude.pack(side=tk.TOP, padx=2, pady=5)
 
@@ -616,12 +592,9 @@ class Radar(object):
 
     def musicAlg2(self, corrMtrx):
         u, s, v = np.linalg.svd(corrMtrx)
-
         self.nfft = 512
-
         frequencyVector = np.linspace(0, 1, self.nfft // 2)
         frequencyVector *= self.samplingRate / 2
-
         sum = 0
         for i in range(self.p, len(v)):
             y = fft(v[i], n=self.nfft)
