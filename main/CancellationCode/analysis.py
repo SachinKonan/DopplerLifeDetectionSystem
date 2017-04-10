@@ -4,8 +4,73 @@ import os
 from scipy.fftpack import fft
 from scipy.signal import butter, lfilter, freqz
 
-string = 'voltvsconcretecontrol.npy'
+string = 'radarData\\testpri1.npy'
+stringnoise = 'radarData\\testpribaseline.npy'
+signal = np.load(string)
+data1 = np.load(stringnoise)
 
+#data = signal[800:1050]
+#noise = data1[800: 1050]
+
+data = signal[800-250:1050-250]*0.6
+noise = data1[500: 750]
+
+plt.plot(data, linewidth = 3,label='Signal')
+plt.plot(noise,linewidth = 3, label = 'Control')
+plt.title('PCA Selected Brick Sample T1 (After filter and Window)')
+plt.xlabel('Samples')
+plt.ylabel('Voltage (V)')
+plt.legend()
+plt.grid()
+plt.show()
+
+
+def butter_lowpass(cutoff, fs, order=5):
+    nyq = 0.5 * fs
+    normal_cutoff = cutoff / nyq
+    b, a = butter(order, normal_cutoff, btype='low', analog=False)
+    return b, a
+def butter_lowpass_filter(data, cutoff, fs, order=5):
+    b, a = butter_lowpass(cutoff, fs, order=order)
+    y = lfilter(b, a, data)
+    return y
+
+newData1 = butter_lowpass_filter(data=data, cutoff =2, fs= 75)
+newData2 = butter_lowpass_filter(data=noise, cutoff =2, fs= 75)
+
+N = len(data)
+# sample spacing
+T = 1.0 / 75
+x = np.linspace(0.0, N*T, N)
+y = newData1
+yf = fft(y)
+ynoise = fft(newData2)
+xf = np.linspace(0.0, 1.0/(2.0*T), N/2)
+
+yf = 2.0/N * np.abs(yf[:N//2])
+ynoise = 2.0/N * np.abs(ynoise[:N//2])
+
+plt.plot(xf, yf, linewidth=3, label='Signal')
+plt.plot(xf, ynoise, linewidth=3, label = 'Control')
+plt.legend()
+plt.xlim((0, 20))
+plt.xlabel('Frequency (Hz)')
+plt.ylabel('Magnitude (dB)')
+plt.title('Brick FFT')
+plt.grid()
+plt.show()
+
+def find_nearest(array,value):
+    idx = (np.abs(array-value)).argmin()
+    return idx
+
+vnrrat = sum(ynoise[1:find_nearest(xf, 3.3)])
+vnrratsig = sum(yf[1:find_nearest(xf, 3.3)])
+
+print(vnrratsig)
+print(vnrrat)
+
+"""
 noise = np.random.normal(0,0.002,2500)
 
 plt.plot(noise)
@@ -139,3 +204,4 @@ plt.ylabel('Magnitude (dB)')
 plt.title('Control Concrete Test')
 plt.grid()
 plt.show()
+"""
