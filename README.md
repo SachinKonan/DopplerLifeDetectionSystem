@@ -37,3 +37,18 @@ A FIR Filter and a Custom Signal Processing algorithm can be found in main/DSP. 
 ### Clutter Cancellatiion 
 
 Found under main/Clutter-Cancellation. Currently in rats-nest state as the majority of testing occured in this folder. The results of the testing in the filter are found in the realmain.py file in main
+
+### Radar Simulations
+
+To demonstrate that DC offset corresponds to the amount of clutter in the radar system, a python simulation was constructed which can be found in main/Simulations. Once run
+### Final
+
+Once all pin connections are made correct according to the picture in main/radarfull.png, main/realmain.py can be run, which has three tabs.
+
+1) Clutter Cancellation - Will run cancellation algorithm and minimize clutter in the receive antenna (approach described in paper). 
+2) Data Collection and Processing - Will collect 2500 samples and output an FFT of the processed data. 
+3) Simple Oscilloscope - Can be used for debugging within the system. 
+
+# Author
+Sachin Konan - Have been working on this work for 1.5 years +
+James Aberle - Mentor for the project, aiding in rf clutter cancellation design. 
